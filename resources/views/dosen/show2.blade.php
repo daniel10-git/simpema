@@ -1,6 +1,9 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite('resources/css/app.css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Sipema</title>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-white">
     <!-- Sidebar -->
