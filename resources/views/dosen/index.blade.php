@@ -39,7 +39,7 @@
                                 @if ($dosen->kelas_id != null)
                                 <a href="{{ route('dosen.show', $dosen->id) }}" class="text-blue-500 hover:text-blue-700 mx-2">
                                     <i class="fas fa-eye"></i>
-                                </a>
+                                </a>                                
                                 @endif
                             </td>
                         </tr>

@@ -32,20 +32,17 @@ class DosenController extends Controller
         $user = Auth::user();
         $dosen = Dosen::where('id_user', $user->id)->first();
         
-        // Cek apakah dosen yang sedang login memiliki kelas_id dan sesuai dengan kelas_id dari dosen yang akan ditampilkan
-        if ($dosen && $dosen->kelas_id == $id) {
-            // Fetch mahasiswa that belong to the dosen's class
-            $mahasiswa = Mahasiswa::where('kelas_id', $dosen->kelas_id)->get();
-    
-            // Fetch edit requests related to mahasiswa in this class
-            $editRequests = RequestEdit::whereIn('mahasiswa_id', $mahasiswa->pluck('id'))->with('mahasiswa')->get();
-            $users = User::all();
+        $mahasiswa = Mahasiswa::where('kelas_id', $dosen->kelas_id)->get();
+
+        $users = User::all();
+        // if ($dosen && $dosen->kelas_id == $id) {
+        //     // Fetch mahasiswa that belong to the dosen's class
             
-            return view('dosen.show', compact('dosen', 'mahasiswa', 'editRequests', 'users'));
-        } else {
-            // Redirect to the index page with an error message if the dosen does not have access
-            return redirect()->route('dosen.index')->with('error', 'Anda tidak memiliki izin untuk mengakses kelas ini.');
-        }
+            return view('dosen.show', compact('dosen', 'mahasiswa', 'users'));
+        // } else {
+        //     // Redirect to the index page with an error message if the dosen does not have access
+        //     return redirect()->route('dosen.index')->with('error', 'Anda tidak memiliki izin untuk mengakses kelas ini.');
+        // }
     }
 
     // Handle approval or rejection of edit requests
