@@ -29,7 +29,9 @@ class KaprodiController extends Controller
     
     public function indexKaprodi()
     {
-        $kaprodi = Kaprodi::all();
+        $user = Auth::user();
+        $kaprodi = Kaprodi::where('id_user', $user->id)->get();
+
         return view('layouts.kaprodi', compact('kaprodi'));
     }
     
@@ -157,7 +159,7 @@ class KaprodiController extends Controller
     public function indexPlot(Request $request)
     {
         // Mengambil data kelas
-        $kelas = Kelas::all();
+        $kelas = Kelas::paginate(1);
 
         $dosen = Dosen::whereNull('kelas_id')->get();
         $mahasiswa = Mahasiswa::whereNull('kelas_id')->get();;
@@ -200,7 +202,7 @@ class KaprodiController extends Controller
         // Update kelas dosen
         Dosen::whereIn('id', $dosenIds)->update(['kelas_id' => $idKelas]);
 
-        return redirect()->route('layouts.plotting')->with('success', 'Kelas dosen berhasil diperbarui.');
+        return redirect()->back()->with('success', 'Kelas dosen berhasil diperbarui.');
     }
     public function destroyKelasDosen($id)
     {
@@ -211,7 +213,7 @@ class KaprodiController extends Controller
         $dosen->update(['kelas_id' => null]);
 
         // Redirect atau berikan feedback
-        return redirect()->route('layouts.plotting')->with('success', 'Kelas dosen berhasil dihapus.');
+        return redirect()->back()->with('success', 'Kelas dosen berhasil dihapus.');
     }
 
 
@@ -244,7 +246,7 @@ class KaprodiController extends Controller
         // Perbarui kelas mahasiswa
         Mahasiswa::whereIn('id', $mahasiswaIds)->update(['kelas_id' => $idKelas]);
 
-        return redirect()->route('layouts.plotting')->with('success', 'Kelas mahasiswa berhasil diperbarui.');
+        return redirect()->back()->with('success', 'Kelas mahasiswa berhasil diperbarui.');
     }
 
     public function destroyKelasMahasiswa($id)
@@ -253,6 +255,6 @@ class KaprodiController extends Controller
 
         $mahasiswa->update(['kelas_id' => null]);
 
-        return redirect()->route('layouts.plotting')->with('success', 'Kelas dosen berhasil dihapus.');
+        return redirect()->back()->with('success', 'Kelas dosen berhasil dihapus.');
     }
 }

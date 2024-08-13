@@ -477,6 +477,7 @@
                                         </div>
                                     </div>
                         </div>
+                        {{ $kelas->links() }}
                 </section>
                 @endforeach
             </div>
