@@ -3,9 +3,26 @@
 
 <head>
     @include('header')
+
+    <style>
+        /* Additional Styles */
+        .card {
+            transition: transform 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .btn {
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #4f8eff;
+        }
+    </style>
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-gradient-to-r from-blue-50 via-blue-100 to-blue-200">
     @include('navbar')
 
     <div class="flex min-h-screen">
@@ -17,7 +34,7 @@
 
             @foreach ($mahasiswa as $mhs)
                 <!-- Profile Section -->
-                <div class="max-w-md mx-auto bg-white shadow-md rounded-lg p-6 mb-4">
+                <div class="max-w-md mx-auto bg-white shadow-md rounded-lg p-6 mb-4 card">
                     <div class="flex flex-col justify-between h-full">
                         <div>
                             <div class="flex items-center mb-6">
@@ -37,13 +54,13 @@
                         </div>
                         @if ($mhs->kelas_id)
                             @if (!$requestEditExists)
-                                <div class="mt-auto">
+                                <div class="mt-auto flex justify-end">
                                     @if ($mhs->edit == '0')
                                         <form action="{{ route('minta.akses') }}" method="get">
                                             <input type="hidden" name="id" value="{{ $mhs->id }}">
                                             <button id="defaultModalButton" data-modal-target="defaultModal"
                                                 data-modal-toggle="defaultModal"
-                                                class=" text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                                class="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                                 type="button">
                                                 Request Edit
                                             </button>
@@ -63,7 +80,7 @@
                             @endif
                         @else
                             <div class="mt-auto">
-                                <p class=" text-red-600 font-medium">Jika terjadi kesalahan data, Anda dapat meminta
+                                <p class="text-red-600 font-medium">Jika terjadi kesalahan data, Anda dapat meminta
                                     akses edit setelah mendapat kelas.</p>
                             </div>
                         @endif

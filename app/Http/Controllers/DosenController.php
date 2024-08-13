@@ -186,9 +186,17 @@ class DosenController extends Controller
         return redirect()->route('dosen.show', $mahasiswa->kelas_id)->with('success', 'Data mahasiswa berhasil dihapus.');
     }
 
-    public function mahasiswaindex(){
-        
+    public function mahasiswaindex(Request $request){
+        $search = $request->input('search'); // Get search query from request
+
+        // Filter mahasiswa based on search query
+        $mahasiswa = Mahasiswa::when($search, function ($query, $search) {
+            return $query->where('nama', 'like', "%{$search}%")
+                         ->orWhere('nim', 'like', "%{$search}%");
+        })->get();
+    
+        return view('dosen.mahasiswa', compact('mahasiswa', 'search'));
         $mahasiswa = Mahasiswa::all();
-        return view('dosen.mahasiswa', compact('mahasiswa'));
+        // return view('dosen.mahasiswa', compact('mahasiswa'));
     }
 }
