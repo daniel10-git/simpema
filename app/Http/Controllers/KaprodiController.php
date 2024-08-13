@@ -157,7 +157,7 @@ class KaprodiController extends Controller
     public function indexPlot(Request $request)
     {
         // Mengambil data kelas
-        $kelas = Kelas::all();
+        $kelas = Kelas::paginate(1);
 
         $dosen = Dosen::whereNull('kelas_id')->get();
         $mahasiswa = Mahasiswa::whereNull('kelas_id')->get();;
