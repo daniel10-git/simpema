@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
          // Membuat 1 Kaprodi
          User::create([
             'name' => 'Kaprodi',
-            'email' => 'kaprodi@simpema.com',
+            'email' => 'kaprodi@sipema.com',
             'password' => Hash::make('password123'),
             'role' => 'kaprodi'
         ]);
@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
         for ($i = 1; $i <= 5; $i++) {
             User::create([
                 'name' => "Dosen $i",
-                'email' => "dosen$i@simpema.com",
+                'email' => "dosen$i@sipema.com",
                 'password' => Hash::make('password123'),
                 'role' => 'dosen'
             ]);
@@ -35,7 +35,7 @@ class UserSeeder extends Seeder
         for ($i = 1; $i <= 20; $i++) {
             User::create([
                 'name' => "Mahasiswa $i",
-                'email' => "mahasiswa$i@simpema.com",
+                'email' => "mahasiswa$i@sipema.com",
                 'password' => Hash::make('password123'),
                 'role' => 'mahasiswa'
             ]);

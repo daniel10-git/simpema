@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Kelas;
 use App\Models\Mahasiswa;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -20,40 +19,35 @@ class MahasiswaSeeder extends Seeder
         // Mendapatkan semua pengguna dengan role 'mahasiswa'
         $mahasiswaUsers = User::where('role', 'mahasiswa')->get();
 
-        // Mengambil semua kelas
-        $kelas = Kelas::all();
-
-        if ($kelas->isEmpty()) {
-            throw new \Exception('Kelas tidak ditemukan.');
-        }
-
         if ($mahasiswaUsers->isEmpty()) {
             throw new \Exception('Mahasiswa tidak ditemukan.');
         }
 
-        // Periksa apakah jumlah kelas cukup untuk menampung semua mahasiswa
-        $jumlahKelas = $kelas->count();
-        $jumlahMahasiswa = $mahasiswaUsers->count();
-        if ($jumlahKelas * 10 < $jumlahMahasiswa) {
-            throw new \Exception('Jumlah kelas tidak cukup untuk menampung semua mahasiswa.');
-        }
+        $kelasId = 1;
+        $studentCountInClass = 0;
 
-        // Menentukan array kelas yang akan digunakan untuk penyebaran mahasiswa
-        foreach ($mahasiswaUsers as $index => $mahasiswaUser) {
-            // Menentukan kelas berdasarkan indeks mahasiswa
-            $kelasIndex = intval($index / 10); // Cycle through classes with 10 students per class
-            $kelas_id = $kelas[$kelasIndex]->kelas_id; // Determine class ID
-
+        foreach ($mahasiswaUsers as $mahasiswaUser) {
+            // Create Mahasiswa record
             Mahasiswa::create([
                 'id' => $mahasiswaUser->id,
-                'id_user' => $mahasiswaUser->id, // Ensure this field exists in your table
-                'kelas_id' => $kelas_id,
+                'id_user' => $mahasiswaUser->id,
+                'kelas_id' => $kelasId,
                 'nama' => $mahasiswaUser->name,
                 'nim' => $faker->unique()->numberBetween(100000000, 999999999),
                 'tempat_lahir' => $faker->city,
                 'tanggal_lahir' => $faker->date('Y-m-d'),
                 'edit' => false,
             ]);
+
+            // Increment the count of students in the current class
+            $studentCountInClass++;
+
+            // Check if the current class has reached its capacity
+            if ($studentCountInClass >= 10) {
+                // Switch to the other class and reset the student count
+                $kelasId = ($kelasId === 1) ? 2 : 1;
+                $studentCountInClass = 0;
+            }
         }
     }
 }
