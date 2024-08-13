@@ -172,23 +172,23 @@ class DosenController extends Controller
     public function destroy($id)
     {
         $mahasiswa = Mahasiswa::findOrFail($id);
-    
+
         // Retrieve the Dosen associated with this Mahasiswa
         $dosen = Dosen::where('kelas_id', $mahasiswa->kelas_id)->first();
-        
+
         // If no Dosen is found, you might want to handle this case
         if (!$dosen) {
             return redirect()->route('dosen.index')->with('error', 'Dosen not found.');
         }
-    
+
         // Set kelas_id to NULL instead of deleting the record
         $mahasiswa->kelas_id = null;
         $mahasiswa->save();
-    
+
         // Redirect to the show route of the found Dosen
         return redirect()->route('dosen.show', $dosen->id)->with('success', 'Kelas mahasiswa berhasil dihapus.');
     }
-    
+
 
 
     public function mahasiswaindex(Request $request)
