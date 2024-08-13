@@ -102,27 +102,31 @@ class DosenController extends Controller
     {
         $user = Auth::user();
         $dosen = Dosen::where('id_user', $user->id)->first();
-        // Validate data
+
         $request->validate([
             'id_user' => 'required',
             'nama' => 'required',
-            'nim' => 'required',
-            'tempat_lahir' => 'required',
-            'tanggal_lahir' => 'required',
         ]);
 
-        // Save data to the database with the Dosen's kelas_id
-        $mahasiswa = new Mahasiswa();
-        $mahasiswa->id_user = $request->input('id_user');
-        $mahasiswa->kelas_id = $dosen->kelas_id; // Automatically set to the Dosen's class
+        // Find a mahasiswa entry without kelas_id
+        $mahasiswa = Mahasiswa::whereNull('kelas_id')
+            ->where('id_user', $request->input('id_user'))
+            ->first();
+
+        // Check if the mahasiswa exists
+        if (!$mahasiswa) {
+            return redirect()->route('dosen.show', $dosen->id)->with('error', 'Mahasiswa not found or already assigned to a class.');
+        }
+
+        // Update the mahasiswa's kelas_id with the Dosen's kelas_id
+        $mahasiswa->kelas_id = $dosen->kelas_id;
         $mahasiswa->nama = $request->input('nama');
-        $mahasiswa->nim = $request->input('nim');
-        $mahasiswa->tempat_lahir = $request->input('tempat_lahir');
-        $mahasiswa->tanggal_lahir = $request->input('tanggal_lahir');
         $mahasiswa->save();
 
-        return redirect()->route('dosen.show', $dosen->id)->with('success', 'Data mahasiswa berhasil ditambahkan');
+        return redirect()->route('dosen.show', $dosen->id)->with('success', 'Data mahasiswa berhasil diperbarui dan kelas telah ditetapkan.');
     }
+
+
 
     public function edit($id)
     {
@@ -168,9 +172,24 @@ class DosenController extends Controller
     public function destroy($id)
     {
         $mahasiswa = Mahasiswa::findOrFail($id);
-        $mahasiswa->delete();
-        return redirect()->route('dosen.show', $mahasiswa->kelas_id)->with('success', 'Data mahasiswa berhasil dihapus.');
+    
+        // Retrieve the Dosen associated with this Mahasiswa
+        $dosen = Dosen::where('kelas_id', $mahasiswa->kelas_id)->first();
+        
+        // If no Dosen is found, you might want to handle this case
+        if (!$dosen) {
+            return redirect()->route('dosen.index')->with('error', 'Dosen not found.');
+        }
+    
+        // Set kelas_id to NULL instead of deleting the record
+        $mahasiswa->kelas_id = null;
+        $mahasiswa->save();
+    
+        // Redirect to the show route of the found Dosen
+        return redirect()->route('dosen.show', $dosen->id)->with('success', 'Kelas mahasiswa berhasil dihapus.');
     }
+    
+
 
     public function mahasiswaindex(Request $request)
     {
