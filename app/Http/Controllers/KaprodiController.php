@@ -29,7 +29,9 @@ class KaprodiController extends Controller
     
     public function indexKaprodi()
     {
-        $kaprodi = Kaprodi::all();
+        $user = Auth::user();
+        $kaprodi = Kaprodi::where('id_user', $user->id)->get();
+
         return view('layouts.kaprodi', compact('kaprodi'));
     }
     
