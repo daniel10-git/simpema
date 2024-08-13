@@ -1,25 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Sipema</title>
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <title>Sipema</title>
 </head>
-<div class="flex-1 flex flex-col">
-        <body class="bg-gray-100 dark:bg-gray-900 text-white flex">
-            <!-- Sidebar -->
-            @include('sidebardosen')
-        
+<body class="bg-gray-100 dark:bg-gray-900 text-white">
+    <!-- Sidebar -->
+    @include('sidebardosen')
 
-    
-        <!-- Page Content -->
-        <main class="flex-1 p-6 lg:p-8">
-            <!-- Page Header -->
-            <x-slot name="header">
-                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                    {{ __('Daftar Mahasiswa') }}
-                </h2>
-            </x-slot>
+<x-slot name="header">
+    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        {{ __('Daftar Mahasiswa') }}
+    </h2>
+</x-slot>
 
             <!-- Main Content -->
             <div class="py-4 bg-gray-100 dark:bg-gray-900">
