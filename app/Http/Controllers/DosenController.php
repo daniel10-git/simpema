@@ -31,18 +31,9 @@ class DosenController extends Controller
     {
         $user = Auth::user();
         $dosen = Dosen::where('id_user', $user->id)->first();
-
         $mahasiswa = Mahasiswa::where('kelas_id', $dosen->kelas_id)->get();
-
         $users = User::all();
-        // if ($dosen && $dosen->kelas_id == $id) {
-        //     // Fetch mahasiswa that belong to the dosen's class
-
         return view('dosen.show', compact('dosen', 'mahasiswa', 'users'));
-        // } else {
-        //     // Redirect to the index page with an error message if the dosen does not have access
-        //     return redirect()->route('dosen.index')->with('error', 'Anda tidak memiliki izin untuk mengakses kelas ini.');
-        // }
     }
 
     // Handle approval or rejection of edit requests
@@ -111,11 +102,6 @@ class DosenController extends Controller
     {
         $user = Auth::user();
         $dosen = Dosen::where('id_user', $user->id)->first();
-
-        if (!$dosen || !$dosen->kelas_id) {
-            return redirect()->route('dosen.index')->with('error', 'You do not have permission to add mahasiswa.');
-        }
-
         // Validate data
         $request->validate([
             'id_user' => 'required',
