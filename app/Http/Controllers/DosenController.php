@@ -101,31 +101,34 @@ class DosenController extends Controller
 
     public function store(Request $request)
     {
+        // Get the authenticated user
         $user = Auth::user();
         $dosen = Dosen::where('id_user', $user->id)->first();
-
+    
+        // Validate the request
         $request->validate([
-            'id_user' => 'required',
-            'nama' => 'required',
+            'mahasiswanull' => 'required|array',
+            'mahasiswanull.*' => 'exists:t_mahasiswa,id', // Validate each ID in the array
         ]);
-
-        // Find a mahasiswa entry without kelas_id
-        $mahasiswa = Mahasiswa::whereNull('kelas_id')
-            ->where('id_user', $request->input('id_user'))
-            ->first();
-
-        // Check if the mahasiswa exists
-        if (!$mahasiswa) {
-            return redirect()->route('dosen.show', $dosen->id)->with('error', 'Mahasiswa not found or already assigned to a class.');
+    
+        // Get the list of mahasiswa IDs from the request
+        $mahasiswaIds = $request->input('mahasiswanull');
+    
+        // Update mahasiswa records
+        foreach ($mahasiswaIds as $mahasiswaId) {
+            $mahasiswanull = Mahasiswa::where('id', $mahasiswaId)
+                ->whereNull('kelas_id')
+                ->first();
+    
+            if ($mahasiswanull) {
+                $mahasiswanull->kelas_id = $dosen->kelas_id;
+                $mahasiswanull->save();
+            }
         }
-
-        // Update the mahasiswa's kelas_id with the Dosen's kelas_id
-        $mahasiswa->kelas_id = $dosen->kelas_id;
-        $mahasiswa->nama = $request->input('nama');
-        $mahasiswa->save();
-
+    
         return redirect()->route('dosen.show', $dosen->id)->with('success', 'Data mahasiswa berhasil diperbarui dan kelas telah ditetapkan.');
     }
+    
 
 
 

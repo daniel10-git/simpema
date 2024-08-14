@@ -27,22 +27,16 @@
                     <div class="grid gap-6 mb-6 md:grid-cols-2">
                         <div>
                             <label for="id_user"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama User</label>
-                            <select id="id_user" name="id_user"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                required>
-                                <option value="">Select User</option>
-                                @foreach ($mahasiswanull as $user)
-                                    <option value="{{ $user->id }}" data-name="{{ $user->name }}">{{ $user->name }}</option>
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
+                                Mahasiswa</label>
+                                @foreach ($mahasiswanull as $m)
+                                <div class="flex items-center">
+                                    <input type="checkbox" name="mahasiswanull[]" value="{{ $m->id }}" 
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 rounded focus:ring-primary-600 focus:border-primary-600 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                    <label for="nama_dosen_1"
+                                        class="ml-2 text-sm text-gray-900 dark:text-gray-300">{{ $m->nama }}</label>
+                                </div>
                                 @endforeach
-                            </select>
-                        </div>
-                        <div>
-                            <label for="nama"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
-                            <input type="text" id="nama" name="nama"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                required readonly>
                         </div>
                     </div>
                 </div>
