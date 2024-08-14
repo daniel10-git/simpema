@@ -19,12 +19,33 @@
             </h2>
         </x-slot>
 
-        <div class="py-12 px-8">
+        <div class="py-4 px-4 text-gray-900 dark:text-gray-100">
+            <div class="max-w-full mx-auto sm:px-6 lg:px-8">
+                <div class="bg-gradient-to-r from-indigo-100 to-blue-200 dark:bg-gray-800 overflow-hidden shadow-lg sm:rounded-lg">
+                    <div class="p-6">
+                        <h1 class="text-3xl font-extrabold mb-4 text-indigo-400 dark:text-indigo-100">Profil Dosen</h1>
+                        <div class="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-md">
+                            <div class="flex items-center mb-4">
+                                <div class="text-gray-900 dark:text-gray-100">
+                                    <h1 class="text-2xl font-extrabold mb-6">{{ $dosen->nama }}</h1>
+                                    <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">NIP : {{ $dosen->nip }}</p>
+                                    <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Kode Dosen : {{ $dosen->kode_dosen }}</p>
+                                    <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Wali Kelas : {{ $dosen->kelas->nama }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="py-4 px-4">
             <div class="max-w-full mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <h1 class="text-3xl font-bold mb-4">Dosen: {{ $dosen->nama }}</h1>
-                        <h2 class="text-2xl font-bold mb-4">Daftar Mahasiswa</h2>
+                        <h2>
+                            <span class="text-gray-500 text-2xl">Daftar Mahasiswa</span>
+                        </h2>
                         <div
                             class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
                            
