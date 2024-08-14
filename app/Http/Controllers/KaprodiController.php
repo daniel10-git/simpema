@@ -196,7 +196,7 @@ class KaprodiController extends Controller
 
         if ($kelasDenganDosen) {
             // Jika kelas sudah memiliki dosen, batalkan pembaruan
-            return redirect()->route('layouts.plotting')->withErrors([
+            return redirect()->back()->withErrors([
                 'id_kelas' => 'Kelas yang dipilih sudah memiliki dosen.'
             ]);
         }
@@ -240,7 +240,7 @@ class KaprodiController extends Controller
 
         // Periksa jika jumlah mahasiswa yang akan ditambahkan melebihi kapasitas kelas
         if (($jumlahMahasiswaDiKelas + $jumlahMahasiswaAkanDiperbarui) > $kelas->kapasitas) {
-            return redirect()->route('layouts.plotting')->withErrors([
+            return redirect()->back()->withErrors([
                 'id_kelas' => 'Kapasitas kelas tidak mencukupi untuk jumlah mahasiswa yang dipilih.'
             ]);
         }
