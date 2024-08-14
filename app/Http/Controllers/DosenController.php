@@ -202,7 +202,7 @@ class DosenController extends Controller
                 ->orWhere('nim', 'like', "%{$search}%");
         })->get();
 
-        return view('dosen.mahasiswa', compact('mahasiswa', 'search', 'mahasiswanull'));
+        return view('dosen.mahasiswa', compact('mahasiswa', 'search'));
         $mahasiswa = Mahasiswa::all();
         // return view('dosen.mahasiswa', compact('mahasiswa'));
     }
