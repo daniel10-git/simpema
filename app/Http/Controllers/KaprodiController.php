@@ -161,6 +161,7 @@ class KaprodiController extends Controller
     {
         // Mengambil data kelas
         $kelas = Kelas::paginate(1);
+        $dkelas = Kelas::all();
 
         $dosen = Dosen::whereNull('kelas_id')->get();
         $mahasiswa = Mahasiswa::whereNull('kelas_id')->get();;
@@ -176,7 +177,7 @@ class KaprodiController extends Controller
             $mahasiswaByKelas[$kelasItem->id] = Mahasiswa::where('kelas_id', $kelasItem->id)->get();
         }
 
-        return view('layouts/plotting', compact('kelas', 'dosen', 'mahasiswa', 'dosenByKelas', 'mahasiswaByKelas'));
+        return view('layouts/plotting', compact('kelas', 'dosen', 'mahasiswa', 'dosenByKelas', 'mahasiswaByKelas','dkelas'));
     }
 
     public function updateKelasDosen(Request $request)
