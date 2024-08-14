@@ -27,12 +27,12 @@
                     <div class="grid gap-6 mb-6 md:grid-cols-2">
                         <div>
                             <label for="id_user"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ID User</label>
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama User</label>
                             <select id="id_user" name="id_user"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                 required>
                                 <option value="">Select User</option>
-                                @foreach ($users as $user)
+                                @foreach ($mahasiswanull as $user)
                                     <option value="{{ $user->id }}" data-name="{{ $user->name }}">{{ $user->name }}</option>
                                 @endforeach
                             </select>

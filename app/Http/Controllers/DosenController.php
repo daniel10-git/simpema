@@ -32,8 +32,9 @@ class DosenController extends Controller
         $user = Auth::user();
         $dosen = Dosen::where('id_user', $user->id)->first();
         $mahasiswa = Mahasiswa::where('kelas_id', $dosen->kelas_id)->get();
-        $users = User::all();
-        return view('dosen.show', compact('dosen', 'mahasiswa', 'users'));
+        // $users = User::all();
+        $mahasiswanull = Mahasiswa::whereNull('kelas_id')->get();
+        return view('dosen.show', compact('dosen', 'mahasiswa',  'mahasiswanull'));
     }
 
     // Handle approval or rejection of edit requests
@@ -201,8 +202,9 @@ class DosenController extends Controller
                 ->orWhere('nim', 'like', "%{$search}%");
         })->get();
 
-        return view('dosen.mahasiswa', compact('mahasiswa', 'search'));
+        return view('dosen.mahasiswa', compact('mahasiswa', 'search', 'mahasiswanull'));
         $mahasiswa = Mahasiswa::all();
         // return view('dosen.mahasiswa', compact('mahasiswa'));
     }
+  
 }
