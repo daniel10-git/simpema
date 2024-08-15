@@ -98,17 +98,7 @@ class KaprodiController extends Controller
 
         return redirect()->route('layouts.dosen')->with('success', 'Dosen berhasil dihapus.');
     }
-    public function resetPasswordDosen($id)
-    {
-        $dosen = Dosen::findOrFail($id);
-        $user = User::findOrFail($dosen->id_user);
-
-        $user->update([
-            'password' => Hash::make('password123')
-        ]);
-
-        return redirect()->route('layouts.dosen')->with('success', 'Password dosen berhasil direset ke default.');
-    }
+    
 
 
 

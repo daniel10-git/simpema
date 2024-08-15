@@ -97,4 +97,6 @@ Route::middleware(['auth', 'dosen'])->group(function () {
     Route::post('mahasiswa/store/', [DosenController::class, 'store'])->name('dosen.store');
     Route::get('/dosenmahasiswa', [DosenController::class, 'mahasiswaindex'])->name('dosen.mahasiswa');
     Route::post('/dosen/approve/{id}', [DosenController::class, 'approveEditRequest'])->name('dosen.approveEditRequest');
+    Route::get('dosen/{id}/edit', [DosenController::class, 'editdosen'])->name('dosen.edit');
+    Route::put('dosen/{id}/update', [DosenController::class, 'updatedosen'])->name('dosen.updatedosen');
 });

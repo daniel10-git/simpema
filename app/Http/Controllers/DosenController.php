@@ -8,6 +8,7 @@ use App\Models\RequestEdit;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class DosenController extends Controller
 {
@@ -50,6 +51,44 @@ class DosenController extends Controller
 
         return view('dosen.show', compact('dosen', 'mahasiswa', 'mahasiswanull', 'search'));
     }
+
+    // Menampilkan form edit
+    public function editdosen($id)
+    {
+        $dosen = Dosen::with('user')->findOrFail($id);
+        return view('dosen.edit', compact('dosen'));
+    }
+
+    // Menyimpan data yang telah diedit
+    public function updatedosen(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255|unique:users,name,' . $id,
+            'password' => 'nullable|string|min:8|confirmed',
+            'nama' => 'required|string|max:255',
+            'nip' => 'required|string|max:20|unique:t_dosen,nip,' . $id,
+            'kode_dosen' => 'required|string|max:10|unique:t_dosen,kode_dosen,' . $id,
+        ]);
+
+        $dosen = Dosen::findOrFail($id);
+        $user = User::findOrFail($dosen->user_id);
+
+        // Update data di tabel users
+        $user->name = $request->input('name');
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->input('password'));
+        }
+        $user->save();
+
+        // Update data di tabel dosen
+        $dosen->nama = $request->input('nama');
+        $dosen->nip = $request->input('nip');
+        $dosen->kode_dosen = $request->input('kode_dosen');
+        $dosen->save();
+
+        return redirect()->route('dosen.show')->with('success', 'Data dosen berhasil diupdate.');
+    }
+
     // Handle approval or rejection of edit requests
     public function viewEditRequests()
     {
