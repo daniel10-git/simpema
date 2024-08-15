@@ -27,33 +27,46 @@ class DosenController extends Controller
     }
 
     // Show a specific dosen with associated mahasiswa and edit requests
-    public function show($id)
+    public function indexdosen(Request $request, $id)
     {
         $user = Auth::user();
         $dosen = Dosen::where('id_user', $user->id)->first();
-        $mahasiswa = Mahasiswa::where('kelas_id', $dosen->kelas_id)->get();
-        // $users = User::all();
-        $mahasiswanull = Mahasiswa::whereNull('kelas_id')->get();
-        return view('dosen.show', compact('dosen', 'mahasiswa',  'mahasiswanull'));
-    }
 
+        // Ambil nilai pencarian dari input
+        $search = $request->input('search');
+
+        // Jika ada input pencarian, filter mahasiswa berdasarkan nama atau NIM
+        $mahasiswa = Mahasiswa::where('kelas_id', $dosen->kelas_id)
+            ->when($search, function ($query, $search) {
+                return $query->where(function ($query) use ($search) {
+                    $query->where('nama', 'like', "%{$search}%")
+                        ->orWhere('nim', 'like', "%{$search}%");
+                });
+            })
+            ->paginate(10); // Adjust the number of items per page as needed
+
+
+        $mahasiswanull = Mahasiswa::whereNull('kelas_id')->get();
+
+        return view('dosen.show', compact('dosen', 'mahasiswa', 'mahasiswanull', 'search'));
+    }
     // Handle approval or rejection of edit requests
     public function viewEditRequests()
     {
         $user = Auth::user();
         $dosen = Dosen::where('id_user', $user->id)->first();
 
-        if (!$dosen) {
-            return redirect()->route('login')->with('error', 'User not authenticated.');
+        // Check if dosen has a kelas_id
+        if (!$dosen || !$dosen->kelas_id) {
+            return redirect()->route('home')->with('error', 'You do not have access to this page.');
         }
 
-        $mahasiswa = Mahasiswa::where('kelas_id', $dosen->kelas_id)->get();
-        $editRequests = RequestEdit::whereIn('mahasiswa_id', $mahasiswa->pluck('id'))
-            ->with('mahasiswa', 'kelas')
-            ->get();
+        // Fetch edit requests for the dosen's class
+        $editRequests = RequestEdit::where('kelas_id', $dosen->kelas_id)->get();
 
-        return view('dosen.show2', compact('editRequests'));
+        return view('dosen.show2', compact('editRequests', 'dosen'));
     }
+
     public function updateEditRequest(Request $request, $id)
     {
         $requestEdit = RequestEdit::findOrFail($id);
@@ -104,31 +117,31 @@ class DosenController extends Controller
         // Get the authenticated user
         $user = Auth::user();
         $dosen = Dosen::where('id_user', $user->id)->first();
-    
+
         // Validate the request
         $request->validate([
             'mahasiswanull' => 'required|array',
             'mahasiswanull.*' => 'exists:t_mahasiswa,id', // Validate each ID in the array
         ]);
-    
+
         // Get the list of mahasiswa IDs from the request
         $mahasiswaIds = $request->input('mahasiswanull');
-    
+
         // Update mahasiswa records
         foreach ($mahasiswaIds as $mahasiswaId) {
             $mahasiswanull = Mahasiswa::where('id', $mahasiswaId)
                 ->whereNull('kelas_id')
                 ->first();
-    
+
             if ($mahasiswanull) {
                 $mahasiswanull->kelas_id = $dosen->kelas_id;
                 $mahasiswanull->save();
             }
         }
-    
+
         return redirect()->route('dosen.show', $dosen->id)->with('success', 'Data mahasiswa berhasil diperbarui dan kelas telah ditetapkan.');
     }
-    
+
 
 
 
@@ -197,17 +210,15 @@ class DosenController extends Controller
 
     public function mahasiswaindex(Request $request)
     {
-        $search = $request->input('search'); // Get search query from request
+        $search = $request->input('search'); // Mendapatkan query pencarian dari request
 
-        // Filter mahasiswa based on search query
+        // Ambil semua mahasiswa jika tidak ada pencarian
         $mahasiswa = Mahasiswa::when($search, function ($query, $search) {
             return $query->where('nama', 'like', "%{$search}%")
                 ->orWhere('nim', 'like', "%{$search}%");
         })->get();
 
+        // Mengembalikan view dengan data mahasiswa
         return view('dosen.mahasiswa', compact('mahasiswa', 'search'));
-        $mahasiswa = Mahasiswa::all();
-        // return view('dosen.mahasiswa', compact('mahasiswa'));
     }
-  
 }

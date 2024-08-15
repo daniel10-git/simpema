@@ -30,7 +30,7 @@ class RedirectIfAuthenticated
                 if ($user->role == 'mahasiswa') {
                     return redirect()->route('tampil.mahasiswa');
                 } elseif ($user->role == 'dosen') {
-                    return redirect()->route('dosen.index');
+                    return redirect()->route('dosen.show');
                 } elseif ($user->role == 'kaprodi') {
                     return redirect()->route('kaprodiindex');
                 }

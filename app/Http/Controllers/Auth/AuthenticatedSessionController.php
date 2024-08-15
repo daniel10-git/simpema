@@ -32,12 +32,12 @@ class AuthenticatedSessionController extends Controller
         if (Auth::user()->role == 'mahasiswa') {
             return redirect()->intended(route('tampil.mahasiswa', absolute: false));
         }
-        
+
         if (Auth::user()->role == 'kaprodi') {
             return redirect()->intended(route('kaprodiindex', absolute: false));
         }
         if (Auth::user()->role == 'dosen') {
-            return redirect()->intended(route('dosen.index', absolute: false));
+            return redirect()->intended(route('dosen.show', ['id' => Auth::user()->id]));
         }
     }
 

@@ -78,8 +78,7 @@ Route::middleware(['auth', 'kaprodi'])->group(function () {
 
 //dosen
 Route::middleware(['auth', 'dosen'])->group(function () {
-    Route::get('dosenindex', [DosenController::class, 'index'])->name('dosen.index');
-    Route::get('/dosen/{id}', [DosenController::class, 'show'])->name('dosen.show');
+    Route::get('/dosen/{id}', [DosenController::class, 'indexdosen'])->name('dosen.show');
     Route::get('/vieweditrequests', [DosenController::class, 'viewEditrequests'])->name('dosen.show2');
     Route::post('/dosen/edit-request/{id}', [DosenController::class, 'updateEditRequest'])->name('dosen.updateEditRequest');
     Route::get('/mahasiswa/edit/{id}', [DosenController::class, 'edit'])->name('dosen.editmhs');

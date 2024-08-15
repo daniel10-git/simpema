@@ -55,7 +55,7 @@
                                 <a href="{{ route('tampil.mahasiswa') }}"
                                     class="font-semibold text-gray-600 hover:text-gray-800 focus:outline focus:outline-2 focus:rounded-sm focus:outline-blue-500">Dashboard</a>
                             @elseif (Auth::user()->role == 'dosen')
-                                <a href="{{ route('dosen.index') }}"
+                                <a href="{{ route('dosen.show', ['id' => Auth::user()->id]) }}"
                                     class="font-semibold text-gray-600 hover:text-gray-800 focus:outline focus:outline-2 focus:rounded-sm focus:outline-blue-500">Dashboard</a>
                             @elseif (Auth::user()->role == 'kaprodi')
                                 <a href="{{ route('layouts.kelas') }}"
