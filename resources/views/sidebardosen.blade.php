@@ -30,7 +30,12 @@
                 </a>
             </li>
 
-            @if (Route::currentRouteName() !== 'dosen.index')
+            @php
+                $user = Auth::user();
+                $dosen = App\Models\Dosen::where('id_user', $user->id)->first();
+            @endphp
+
+            @if ($dosen && $dosen->kelas_id)
                 <li>
                     <a href="{{ route('dosen.show2') }}"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -44,7 +49,6 @@
                     </a>
                 </li>
             @endif
-
         </ul>
     </div>
 </aside>
