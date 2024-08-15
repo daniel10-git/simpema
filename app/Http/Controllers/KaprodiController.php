@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dosen;
-use App\Models\Kaprodi;
-use App\Models\Kelas;
-use App\Models\Mahasiswa;
 use App\Models\User;
+use App\Models\Dosen;
+use App\Models\Kelas;
+use App\Models\Kaprodi;
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class KaprodiController extends Controller
 {
@@ -47,14 +48,32 @@ class KaprodiController extends Controller
 
     public function storeDosen(Request $request)
     {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users'],
+            
+            'kode_dosen' => ['required', 'string'],
+            'nip' => ['required', 'string'],
+            'nama' => ['required', 'string'],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make('password123'),
+            'role' => 'dosen'
+        ]);
+
         Dosen::create([
-            'id_user' => $request->input('id_user'),
+            'id_user' => $user->id,
             'kode_dosen' => $request->input('kode_dosen'),
             'nip' => $request->input('nip'),
             'nama' => $request->input('nama'),
         ]);
+
         return redirect()->route('layouts.dosen')->with('success', 'Dosen berhasil ditambah.');
     }
+
 
     public function updateDosen(Request $request, $id)
     {
