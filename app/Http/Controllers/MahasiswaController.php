@@ -26,10 +26,7 @@ class MahasiswaController extends Controller
     {
         $mahasiswa = Mahasiswa::where('id', $request->id)->first();
         $mahasiswa->update([
-            'id_user' => $request->id_user,
-            'kelas_id' => $request->kelas_id,
             'nama' => $request->nama,
-            'nim' => $request->nim,
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tanggal_lahir,
             'edit' => $request->edit

@@ -36,8 +36,6 @@
                         class="max-w-sm mx-auto flex flex-col space-y-5">
                         @csrf
                         <input type="hidden" name="id" value="{{ $mahasiswaItem->id }}" />
-                        <input type="hidden" name="id_user" value="{{ $mahasiswaItem->id_user }}" />
-                        <input type="hidden" name="kelas_id" value="{{ $mahasiswaItem->kelas_id }}" />
                         <div class="mb-5">
                             <label for="kelas"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kelas</label>
