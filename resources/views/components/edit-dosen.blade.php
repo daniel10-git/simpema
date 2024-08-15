@@ -29,7 +29,7 @@
                     @method('PUT')
                     <div class="grid gap-4 mb-4 sm:grid-cols-1">
 
-                        <div>
+                        {{-- <div>
                             <label for="category"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">User
                                 ID </label>
@@ -42,7 +42,7 @@
                                     </option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> --}}
 
                         <div>
                             <label for="name"

@@ -24,11 +24,11 @@ class KaprodiController extends Controller
 
     public function dashboard($id)
     {
-        
+
 
         return view('layouts/dashboard');
     }
-    
+
     public function indexKaprodi()
     {
         $user = Auth::user();
@@ -36,7 +36,7 @@ class KaprodiController extends Controller
 
         return view('layouts.kaprodi', compact('kaprodi'));
     }
-    
+
 
     public function indexDosen()
     {
@@ -51,7 +51,7 @@ class KaprodiController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users'],
-            
+
             'kode_dosen' => ['required', 'string'],
             'nip' => ['required', 'string'],
             'nama' => ['required', 'string'],
@@ -97,6 +97,17 @@ class KaprodiController extends Controller
         $user->delete();
 
         return redirect()->route('layouts.dosen')->with('success', 'Dosen berhasil dihapus.');
+    }
+    public function resetPasswordDosen($id)
+    {
+        $dosen = Dosen::findOrFail($id);
+        $user = User::findOrFail($dosen->id_user);
+
+        $user->update([
+            'password' => Hash::make('password123')
+        ]);
+
+        return redirect()->route('layouts.dosen')->with('success', 'Password dosen berhasil direset ke default.');
     }
 
 
@@ -199,7 +210,7 @@ class KaprodiController extends Controller
             $mahasiswaByKelas[$kelasItem->id] = Mahasiswa::where('kelas_id', $kelasItem->id)->get();
         }
 
-        return view('layouts/plotting', compact('kelas', 'dosen', 'mahasiswa', 'dosenByKelas', 'mahasiswaByKelas','dkelas'));
+        return view('layouts/plotting', compact('kelas', 'dosen', 'mahasiswa', 'dosenByKelas', 'mahasiswaByKelas', 'dkelas'));
     }
 
     public function updateKelasDosen(Request $request)

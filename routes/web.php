@@ -59,6 +59,7 @@ Route::middleware(['auth', 'kaprodi'])->group(function () {
     Route::put('update-dosen/{d_id}', [KaprodiController::class, 'updateDosen'])->name('updatedosen');
     Route::delete('delete-dosen/{d_id}', [KaprodiController::class, 'destroyDosen'])->name('destroydosen');
     Route::get('/dosen-cari', [KaprodiController::class, 'cariNamaDosen'])->name('caridosen');
+    Route::post('/dosen/reset-password/{id}', [KaprodiController::class, 'resetPasswordDosen'])->name('reset-password-dosen');
 
 
     Route::get('/kelas', [KaprodiController::class, 'indexKelas'])->name('layouts.kelas');
