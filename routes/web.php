@@ -75,6 +75,13 @@ Route::middleware(['auth', 'kaprodi'])->group(function () {
     Route::delete('/plotting-destroydosen/{id}', [KaprodiController::class, 'destroyKelasDosen'])->name('plottingdestroydosen');
     Route::post('/plotting-updatemahasiswa', [KaprodiController::class, 'updateKelasMahasiswa'])->name('plottingupdatemahasiswa');
     Route::delete('/plotting-destroymahasiswa/{id}', [KaprodiController::class, 'destroyKelasMahasiswa'])->name('plottingdestroymahasiswa');
+
+    //Mahasiswa
+    Route::get('/mahasiswa-kaprodi', [KaprodiController::class, 'indexMahasiswa'])->name('index.mahasiswa');
+    Route::post('/store-mahasiswa', [KaprodiController::class, 'storeMahasiswa'])->name('store.mahasiswa');
+    Route::put('update-mahasiswa/{id}', [KaprodiController::class, 'updateMahasiswa'])->name('update.mahasiswa');
+    Route::delete('delete-mahasiswa/{id}', [KaprodiController::class, 'destroyMahasiswa'])->name('destroy.mahasiswa');
+    Route::get('/mahasiswa-cari', [KaprodiController::class, 'cariNamaMahasiswa'])->name('cari.mahasiswa');
 });
 
 //dosen

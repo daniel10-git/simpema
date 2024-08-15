@@ -292,4 +292,81 @@ class KaprodiController extends Controller
 
         return redirect()->back()->with('success', 'Kelas dosen berhasil dihapus.');
     }
+
+    //mahasiswa
+    public function indexMahasiswa()
+    {
+        $mahasiswa = Mahasiswa::get();
+        $user = User::select('id')->where('role', 'mahasiswa')->get();
+
+        return view('', compact('mahasiswa', 'user'));
+    }
+
+    public function storeMahasiswa(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users'],
+            'nama' => ['required', 'string'],
+            'nim' => ['required', 'string'],
+            'tempat_lahir' => ['required', 'string'],
+            'tanggal_lahir' => ['required', 'date']
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make('password123'),
+            'role' => 'mahasiswa',
+        ]);
+
+        Mahasiswa::create([
+            'id_user' => $user->id,
+            'nama' => $request->input('nama'),
+            'nim' => $request->input('nim'),
+            'tempat_lahir' => $request->input('tempat_lahir'),
+            'tanggal_lahir' => $request->input('tanggal_lahir'),
+            'edit' => '0'
+        ]);
+        return redirect()->route('index.mahasiswa')->with('success', 'Mahasiswa berhasil ditambah.');
+    }
+
+    public function updateMahasiswa(Request $request, $id)
+    {
+        $request->validate([
+            'nama' => ['required', 'string'],
+            'nim' => ['required', 'string'],
+            'tempat_lahir' => ['required', 'string'],
+            'tanggal_lahir' => ['required', 'date']
+        ]);
+
+        $mahasiswa = Mahasiswa::findOrFail($id);
+        $mahasiswa->update($request->all());
+
+        return redirect()->route('index.mahasiswa')->with('success', 'Dosen berhasil diperbarui.');
+    }
+    public function destroyMahasiswa($id)
+    {
+        $mahasiswa = Mahasiswa::findOrFail($id);
+        $user = User::find($mahasiswa->id_user);
+        $mahasiswa->delete();
+        if ($user) {
+            $user->delete();
+        }
+        return redirect()->route('index.mahasiswa')->with('success', 'Mahasiswa dan user terkait berhasil dihapus.');
+    }
+
+    public function cariNamaMahasiswa(Request $request)
+    {
+        $user = User::select('id')->where('role', 'dosen')->get();
+        $query = Mahasiswa::query();
+
+        if ($request->has('search') && !empty($request->search)) {
+            $query->where('nama', 'like', '%' . $request->search . '%');
+        }
+
+        $mahasiswa = $query->get();
+
+        return view('', compact('mahasiswa', 'user'));
+    }
 }
