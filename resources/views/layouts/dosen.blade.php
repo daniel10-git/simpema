@@ -228,24 +228,7 @@
                                                         </button>
                                                         @include('components.delete')
 
-                                                        <!-- Button Reset Password -->
-                                                        <button type="button"
-                                                            data-modal-target="resetPasswordModal{{ $d->id }}"
-                                                            data-modal-toggle="resetPasswordModal{{ $d->id }}"
-                                                            class="flex items-center text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-900">
-                                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                                class="h-4 w-4 mr-2 -ml-0.5" viewbox="0 0 20 20"
-                                                                fill="currentColor" aria-hidden="true">
-                                                                <path fill-rule="evenodd"
-                                                                    d="M10 2a2 2 0 00-2 2v12a2 2 0 004 0V4a2 2 0 00-2-2z"
-                                                                    clip-rule="evenodd" />
-                                                                <path fill-rule="evenodd"
-                                                                    d="M10 0a4 4 0 00-4 4v12a4 4 0 008 0V4a4 4 0 00-4-4z"
-                                                                    clip-rule="evenodd" />
-                                                            </svg>
-                                                            Reset Password
-                                                        </button>
-                                                        @include('components.resetpassword-dosen')
+
                                                     </div>
                                                 </td>
                                             </tr>
