@@ -289,7 +289,7 @@ class KaprodiController extends Controller
         $mahasiswa = Mahasiswa::get();
         $user = User::select('id')->where('role', 'mahasiswa')->get();
 
-        return view('', compact('mahasiswa', 'user'));
+        return view('mhs', compact('mahasiswa', 'user'));
     }
 
     public function storeMahasiswa(Request $request)
@@ -357,6 +357,6 @@ class KaprodiController extends Controller
 
         $mahasiswa = $query->get();
 
-        return view('', compact('mahasiswa', 'user'));
+        return view('mhs', compact('mahasiswa', 'user'));
     }
 }
