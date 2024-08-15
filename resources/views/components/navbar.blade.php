@@ -2,7 +2,7 @@
     <header class="antialiased">
         <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
             <div class="flex flex-wrap justify-between items-center">
-                <a href="{{ route('tampil.mahasiswa') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <a href="{{ route('kaprodiindex') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src="../images/logopnc.png" class="h-8" alt="Politeknik Negeri Cilacap" />
                     <span class="self-center text-2xl font-semibold whitespace-nowrap text-blue-500 dark:text-blue-500">SIPEMA</span>
 
