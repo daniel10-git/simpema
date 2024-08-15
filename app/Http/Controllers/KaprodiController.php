@@ -91,7 +91,10 @@ class KaprodiController extends Controller
     public function destroyDosen($id)
     {
         $dosen = Dosen::findOrFail($id);
+        $user = User::findOrFail($dosen->id_user);
+
         $dosen->delete();
+        $user->delete();
 
         return redirect()->route('layouts.dosen')->with('success', 'Dosen berhasil dihapus.');
     }
