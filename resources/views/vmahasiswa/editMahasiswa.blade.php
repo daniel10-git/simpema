@@ -8,8 +8,8 @@
 <body>
     <!-- Main modal -->
     <div id="updateProductModal" tabindex="-1" aria-hidden="true"
-        class="hidden fixed inset-0 z-50  items-center justify-center w-full h-full overflow-y-auto">
-        <div class="relative p-4 w-full max-w-4xl h-auto rounfed-lg shadow">
+        class="fixed inset-0 z-50 hidden items-center justify-center w-full h-full overflow-y-auto">
+        <div class="relative p-4 w-full max-w-4xl h-auto rounded-lg shadow">
             <!-- Modal content -->
             <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
                 <!-- Modal header -->
@@ -53,6 +53,7 @@
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                     <p class="text-gray-500 text-xs mt-1">Kosongkan jika tidak ingin mengubah password
                                     </p>
+
                                 </div>
                                 <div class="mb-6">
                                     <label for="email"
@@ -61,7 +62,6 @@
                                         value="{{ $mahasiswaItem->user->email }}"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                 </div>
-
                             </div>
 
                             {{-- Kolom kanan --}}
@@ -69,7 +69,7 @@
                                 <div class="mb-6">
                                     <label for="nim"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIM</label>
-                                    <input type="number" id="nim" name="nim" readonly
+                                    <input type="number" id="nim" name="nim"
                                         value="{{ $mahasiswaItem->nim }}"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                 </div>
@@ -80,7 +80,6 @@
                                         value="{{ $mahasiswaItem->nama }}"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                 </div>
-
                                 <div class="mb-6">
                                     <label for="tanggal_lahir"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
@@ -98,21 +97,23 @@
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                 </div>
                             </div>
-                            <div class="flex justify-end mt-6 space-x-4">
-                                <!-- Save Button -->
-                                <button type="submit"
-                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                    SIMPAN
-                                </button>
+                        </div>
+                        <input type="hidden" id="edit" name="edit" value="0" />
+                        <div class="flex justify-end mt-6 space-x-4">
+                            <!-- Save Button -->
+                            <button type="submit"
+                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                SIMPAN
+                            </button>
 
-                                <!-- Back Button -->
-                                <a href="{{ route('tampil.mahasiswa') }}" class="ml-4">
-                                    <button type="button"
-                                        class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
-                                        Kembali
-                                    </button>
-                                </a>
-                            </div>
+                            <!-- Back Button -->
+                            <a href="{{ route('tampil.mahasiswa') }}" class="ml-4">
+                                <button type="button"
+                                    class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+                                    Kembali
+                                </button>
+                            </a>
+                        </div>
                     </form>
                 @else
                     <p>Data mahasiswa tidak ditemukan.</p>
@@ -121,11 +122,24 @@
         </div>
     </div>
 
+
+
     <script>
-        document.addEventListener("DOMContentLoaded", function(event) {
+        document.addEventListener("DOMContentLoaded", function() {
             var updateButton = document.getElementById('updateProductButton');
+            var modal = document.getElementById('updateProductModal');
+
             if (updateButton) {
-                updateButton.click();
+                updateButton.addEventListener('click', function() {
+                    modal.classList.toggle('hidden');
+                });
+            }
+
+            var closeButton = modal.querySelector('[data-modal-toggle="updateProductModal"]');
+            if (closeButton) {
+                closeButton.addEventListener('click', function() {
+                    modal.classList.add('hidden');
+                });
             }
         });
     </script>
