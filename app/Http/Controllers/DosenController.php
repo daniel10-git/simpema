@@ -42,10 +42,6 @@ class DosenController extends Controller
     {
         $dosen = Dosen::findOrFail($id);
         $user = User::find($dosen->id);
-
-        if (!$user) {
-            dd('User tidak ditemukan untuk dosen ini', $dosen);
-        }
         return view('dosen.editdosen', compact('dosen', 'user'));
     }
 
@@ -57,30 +53,31 @@ class DosenController extends Controller
             'nama' => 'required|string|max:255',
             'nip' => 'required|string|max:20|unique:t_dosen,nip,' . $id,
             'kode_dosen' => 'required|string|max:10|unique:t_dosen,kode_dosen,' . $id,
-            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+            'email' => 'required|string|email|max:255|unique:users,email,' . $request->input('id_user'),
             'password' => 'nullable|string|min:8|confirmed',
         ]);
-    
+
         // Temukan Dosen dan User terkait
         $dosen = Dosen::findOrFail($id);
-        $user = User::findOrFail($dosen->id);
-    
+        $user = User::findOrFail($dosen->id_user);
+
         // Update data di tabel users
         $user->email = $request->input('email');
         if ($request->filled('password')) {
             $user->password = Hash::make($request->input('password'));
         }
-        $user->save();
-    
+        $user->update();
+
         // Update data di tabel dosen
         $dosen->nama = $request->input('nama');
         $dosen->nip = $request->input('nip');
         $dosen->kode_dosen = $request->input('kode_dosen');
-        $dosen->save();
-    
-    
-        return redirect()->route('dosen.show')->with('success', 'Data dosen berhasil diupdate.');
+        $dosen->update();
+
+        return redirect()->route('dosen.show', $id)->with('success', 'Data dosen berhasil diupdate.');
     }
+
+
     
 
 
