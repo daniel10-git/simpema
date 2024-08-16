@@ -55,23 +55,23 @@ Route::middleware(['auth', 'kaprodi'])->group(function () {
     })->name('welcome');
     Route::get('/kaprodi', [KaprodiController::class, 'indexKaprodi'])->name('kaprodiindex');
     // Route::get('/kaprodiindex', [KaprodiController::class, 'indexKaprodi'])->name('layouts.kaprodi');
-    Route::get('/dosen', [KaprodiController::class, 'indexDosen'])->name('layouts.dosen');
+    Route::get('/kaprodi-dosen', [KaprodiController::class, 'indexDosen'])->name('layouts.dosen');
     Route::post('/store-dosen', [KaprodiController::class, 'storeDosen'])->name('storedosen');
     Route::put('update-dosen/{d_id}', [KaprodiController::class, 'updateDosen'])->name('updatedosen');
     Route::delete('delete-dosen/{d_id}', [KaprodiController::class, 'destroyDosen'])->name('destroydosen');
     Route::get('/dosen-cari', [KaprodiController::class, 'cariNamaDosen'])->name('caridosen');
     // Route::post('/dosen/reset-password/{id}', [KaprodiController::class, 'resetPasswordDosen'])->name('reset-password-dosen');
-    Route::put('/updateakun-dosen/{id_user}', [KaprodiController::class, 'updateAkun'])->name('updateakundosen');
+    Route::put('/updateakun/{id_user}', [KaprodiController::class, 'updateAkun'])->name('updateakundosen');
 
 
-    Route::get('/kelas', [KaprodiController::class, 'indexKelas'])->name('layouts.kelas');
+    Route::get('/kaprodi-kelas', [KaprodiController::class, 'indexKelas'])->name('layouts.kelas');
     Route::post('/store-kelas', [KaprodiController::class, 'storeKelas'])->name('storekelas');
     Route::put('update-kelas/{id}', [KaprodiController::class, 'updateKelas'])->name('updatekelas');
     Route::delete('delete-kelas/{id}', [KaprodiController::class, 'destroyKelas'])->name('destroykelas');
     Route::get('/kelas-cari', [KaprodiController::class, 'cariNamaKelas'])->name('carikelas');
 
     // Rute untuk halaman plotting
-    Route::get('/plotting', [KaprodiController::class, 'indexPlot'])->name('layouts.plotting');
+    Route::get('/kaprodi-plotting', [KaprodiController::class, 'indexPlot'])->name('layouts.plotting');
     Route::get('/plotting-dosen', [KaprodiController::class, 'plotDosen'])->name('plottingdosen');
     Route::post('/plotting-updatedosen', [KaprodiController::class, 'updateKelasDosen'])->name('plottingupdatedosen');
     Route::delete('/plotting-destroydosen/{id}', [KaprodiController::class, 'destroyKelasDosen'])->name('plottingdestroydosen');
