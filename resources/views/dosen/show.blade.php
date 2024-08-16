@@ -28,17 +28,15 @@
                         <div class="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-md">
                             <div class="flex items-center mb-4">
                                 <div class="text-gray-900 dark:text-gray-100">
-                                    <h1 class="text-2xl font-bold mb-6">{{ $dosen->nama }}</h1>
-                                    <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">NIP :
-                                        {{ $dosen->nip }}</p>
-                                    <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Kode Dosen :
-                                        {{ $dosen->kode_dosen }}</p>
-                                    <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Wali Kelas :
-                                        {{ $dosen->kelas->nama ?? 'Belum Ditentukan' }}</p>
+                                    <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">{{ $dosen->nama }}</h2>
+                                    <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-1">NIP : {{ $dosen->nip }}</p>
+                                    <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-1">Kode Dosen : {{ $dosen->kode_dosen }}</p>
+                                    <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-4">Wali Kelas : {{ $dosen->kelas->nama ?? 'Belum Ditentukan' }}</p>
                                     <button type="button" id="updateProductButton"
                                         data-modal-target="updateProductModal{{ $dosen->id }}"
                                         data-modal-toggle="updateProductModal{{ $dosen->id }}"
-                                        class="block text-white bg-yellow-500 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800">
+                                        class="block text-white bg-yellow-500 hover:bg-yellow-700 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-yellow-400 dark:hover:bg-yellow-500 dark:focus:ring-yellow-600">
+                                        <i class="fas fa-edit"></i>
                                         Edit
                                     </button>
 
