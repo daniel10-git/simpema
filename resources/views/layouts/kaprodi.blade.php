@@ -37,28 +37,35 @@
             <div class="bg-white shadow-md rounded-lg overflow-hidden">
                 <!-- Start block -->
                 <section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
-                    <div class="p-6">
-                        <h1 class="text-3xl font-extrabold mb-4 text-indigo-400 dark:text-indigo-100">Profil
-                            Kaprodi</h1>
-                        <div class="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-md">
-                            <div class="flex items-center mb-4">
-                                <div class="text-gray-900 dark:text-gray-100">
-                                    <h1 class="text-2xl font-bold mb-6">{{ $kaprodi->nama }}</h1>
-                                    <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Email :
-                                        {{ $kaprodi->user->email }}</p>
-                                    <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">NIP :
-                                        {{ $kaprodi->nip }}</p>
-                                    <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Kode
-                                        Dosen :
-                                        {{ $kaprodi->kode_dosen }}</p>
-                                    <button type="button" id="updateProductButton"
-                                        data-modal-target="updateProductModal{{ $kaprodi->id }}"
-                                        data-modal-toggle="updateProductModal{{ $kaprodi->id }}"
-                                        class="block text-white bg-yellow-500 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800">
-                                        Edit
-                                    </button>
-
-                                    {{-- @include('dosen.editdosen') --}}
+                    <div class="py-8 px-8 text-gray-900 dark:text-gray-100">
+                        <div class="max-w-full mx-auto sm:px-6 lg:px-4">
+                            <div
+                                class="bg-gradient-to-r from-indigo-100 to-blue-100 dark:bg-gray-800 overflow-hidden shadow-lg sm:rounded-lg">
+                                <div class="p-6">
+                                    <h1 class="text-3xl font-extrabold mb-4 text-indigo-400 dark:text-indigo-100">Profil Kaprodi</h1>
+                                    <div class="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-md">
+                                        <div class="flex items-center mb-4">
+                                            <div class="text-gray-900 dark:text-gray-100">
+                                                <h1 class="text-2xl font-bold mb-6">{{ $kaprodi->nama }}</h1>
+                                                <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Email :
+                                                    {{ $kaprodi->user->email }}</p>
+                                                <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">NIP :
+                                                    {{ $kaprodi->nip }}</p>
+                                                <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Kode
+                                                    Dosen :
+                                                    {{ $kaprodi->kode_dosen }}</p>
+                                                <button type="button" id="updateProductButton"
+                                                    data-modal-target="updateProductModal{{ $kaprodi->id }}"
+                                                    data-modal-toggle="updateProductModal{{ $kaprodi->id }}"
+                                                    class="block text-white bg-yellow-500 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800">
+                                                    Edit
+                                                </button>
+            
+                                                {{-- @include('dosen.editdosen') --}}
+            
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
