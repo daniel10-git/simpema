@@ -29,10 +29,9 @@ class KaprodiController extends Controller
     public function indexKaprodi()
     {
         $user = Auth::user();
-        $kaprodi = Kaprodi::where('id_user', $user->id)->get();
+        $kaprodi = Kaprodi::where('id_user', $user->id)->first();
         return view('layouts.kaprodi', compact('kaprodi'));
     }
-
 
     public function indexDosen()
     {
@@ -119,7 +118,7 @@ class KaprodiController extends Controller
 
 
 
-    
+
     public function updateAkun(Request $request, $id_user)
     {
         // Validasi inputan
