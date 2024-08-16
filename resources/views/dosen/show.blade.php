@@ -35,6 +35,14 @@
                                         {{ $dosen->kode_dosen }}</p>
                                     <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Wali Kelas :
                                         {{ $dosen->kelas->nama ?? 'Belum Ditentukan' }}</p>
+                                    <button type="button" id="updateProductButton"
+                                        data-modal-target="updateProductModal{{ $dosen->id }}"
+                                        data-modal-toggle="updateProductModal{{ $dosen->id }}"
+                                        class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                        Edit
+                                    </button>
+
+                                    @include('dosen.editdosen')
                                 </div>
                             </div>
                         </div>
@@ -131,7 +139,7 @@
 
                                                 <!-- Delete Modal -->
                                                 <div id="delete-modal-{{ $m->id }}" tabindex="-1"
-                                                    class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                    class="hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-50 bg-black bg-opacity-50 justify-center items-center">
                                                     <div class="relative w-full h-auto max-w-md max-h-full">
                                                         <div
                                                             class="relative bg-white rounded-lg shadow dark:bg-gray-700">

@@ -4,10 +4,10 @@
 </head>
 
 <!-- Edit Modal -->
-<div id="updateProductModal{{ $m->id }}" tabindex="-1" aria-hidden="true"
+<div id="updateProductModal{{ $dosen->id }}" tabindex="-1" aria-hidden="true"
     class="hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-50 bg-black bg-opacity-50 justify-center items-center">
     <div class="relative w-full max-w-2xl max-h-full">
-        <form action="{{ route('dosen.update', $m->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('dosen.updatedosen', $dosen->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <!-- Modal content -->
@@ -15,11 +15,11 @@
                 <!-- Modal header -->
                 <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                        Edit Data Mahasiswa
+                        Edit Data Dosen
                     </h3>
                     <button type="button"
                         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                        data-modal-hide="updateProductModal{{ $m->id }}"> <!-- Corrected attribute -->
+                        data-modal-hide="updateProductModal{{ $dosen->id }}">
                         <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -35,33 +35,37 @@
                         <div class="sm:col-span-2">
                             <label for="nama"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
-                            <input type="text" name="nama" id="nama" value="{{ $m->nama }}"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Nama mahasiswa" required="">
+                            <input type="text" name="nama" id="nama" value="{{ $dosen->nama }}"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Nama Dosen" required="">
                         </div>
                         <div class="w-full">
-                            <label for="nim"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIM</label>
-                            <input type="text" name="nim" id="nim" value="{{ $m->nim }}"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="NIM" required="">
+                            <label for="nip"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIP</label>
+                            <input type="text" name="nip" id="nip" value="{{ $dosen->nip }}"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="NIP" required="">
                         </div>
                         <div class="w-full">
-                            <label for="tempat_lahir"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tempat
-                                Lahir</label>
-                            <input type="text" name="tempat_lahir" id="tempat_lahir" value="{{ $m->tempat_lahir }}"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Tempat lahir" required="">
+                            <label for="kode_dosen"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kode Dosen</label>
+                            <input type="text" name="kode_dosen" id="kode_dosen" value="{{ $dosen->kode_dosen }}"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Kode Dosen" required="">
                         </div>
                         <div class="w-full">
-                            <label for="tanggal_lahir"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
-                                Lahir</label>
-                            <input type="date" name="tanggal_lahir" id="tanggal_lahir"
-                                value="{{ $m->tanggal_lahir }}"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Tanggal lahir" required="">
+                            <label for="email"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                            <input type="text" name="email" id="email" value="{{ $user->email }}"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Email" required="">
+                        </div>
+                        <div class="w-full">
+                            <label for="password"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                            <input type="text" name="password" id="password" value="{{ $user->password }}"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Password" required="">
                         </div>
                     </div>
                 </div>
