@@ -94,8 +94,8 @@
                                             <div
                                                 class="flex flex-col md:flex-row md:items-start md:justify-between space-y-4 md:space-y-0 md:space-x-6 p-4">
                                                 <div class="flex-1 flex flex-col items-start space-y-3">
-                                         
-                                                    
+
+
                                                     <div class="flex-1 flex items-center space-x-3">
                                                         <h5>
                                                             <span
@@ -114,8 +114,8 @@
                                                                         xmlns="http://www.w3.org/2000/svg">
                                                                     </svg>
                                                                 </div>
-                                                                
-                                                         
+
+
                                                         </form>
                                                         <div class="flex-1 flex items-center space-x-2">
                                                             <h5>
@@ -166,7 +166,7 @@
                                                                 <div class="flex items-center justify-between pt-2">
                                                                 </div>
                                                                 <div class="pt-3 pb-2">
-                                                                  
+
                                                                     <div class="relative">
                                                                         <div
                                                                             class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
@@ -206,8 +206,8 @@
 
                                                                     </th>
                                                                     <th scope="col" class="p-4">Dosen ID</th>
-                                                                    <th scope="col" class="p-4">User ID</th>
-                                                                    <th scope="col" class="p-4">Kelas ID</th>
+                                                                    <th scope="col" class="p-4">Username</th>
+                                                                    <th scope="col" class="p-4">Kelas</th>
                                                                     <th scope="col" class="p-4">Kode Dosen</th>
                                                                     <th scope="col" class="p-4">NIP</th>
                                                                     <th scope="col" class="p-4">Nama Dosen</th>
@@ -228,18 +228,29 @@
                                                                                 {{ $dosen->id }}
                                                                             </div>
                                                                         </td>
+
                                                                         <td
                                                                             class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                                             <div class="flex items-center">
-                                                                                {{ $dosen->id_user }}
+                                                                                {{ $dosen->user->name }}
                                                                             </div>
                                                                         </td>
-                                                                        <td
-                                                                            class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                                            <div class="flex items-center">
-                                                                                {{ $dosen->kelas_id }}
-                                                                            </div>
-                                                                        </td>
+                                                                        @if ($dosen->kelas_id)
+                                                                            <td
+                                                                                class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                                                <div class="flex items-center">
+                                                                                    {{ $dosen->kelas->nama }}
+                                                                                </div>
+                                                                            </td>
+                                                                        @else
+                                                                            <td
+                                                                                class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                                                <div class="flex items-center">
+                                                                                    -
+                                                                                </div>
+                                                                            </td>
+                                                                        @endif
+
                                                                         <td
                                                                             class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                                             <div class="flex items-center">
@@ -299,7 +310,7 @@
 
                                                                     <div class="w-full md:w-1/1 mb-5">
                                                                         <form class="flex items-center">
-                                                                          
+
                                                                             <div class="relative w-full">
                                                                                 <div
                                                                                     class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -308,18 +319,20 @@
                                                                                         fill="currentColor"
                                                                                         viewbox="0 0 20 20"
                                                                                         xmlns="http://www.w3.org/2000/svg">
-                                                                                        
+
                                                                                     </svg>
                                                                                 </div>
 
                                                                         </form>
-                                                                            <div class="flex-1 flex items-center space-x-2">
-                                                                                <h5>
-                                                                                    <span class="text-blue-400 font-bold">Mahasiswa</span>
-                                                                                </h5>
-                                                                            </div>
+                                                                        <div
+                                                                            class="flex-1 flex items-center space-x-2">
+                                                                            <h5>
+                                                                                <span
+                                                                                    class="text-blue-400 font-bold">Mahasiswa</span>
+                                                                            </h5>
                                                                         </div>
-                                                     
+                                                                    </div>
+
 
                                                                     <div class="w-full md:w-1/1 mb-5">
                                                                         <div id="filterDropdown"
@@ -327,7 +340,7 @@
                                                                             <div
                                                                                 class="flex items-center justify-between pt-2">
                                                                             </div>
-                                                                            
+
                                                                         </div>
                                                                     </div>
                                                                     <div
@@ -340,7 +353,7 @@
                                                                                 <div
                                                                                     class="flex items-center justify-between pt-2">
                                                                                 </div>
-                                                                                
+
 
                                                                             </div>
                                                                             <div
@@ -366,9 +379,9 @@
                                                                                     <th scope="col" class="p-4">
                                                                                         Mahasiswa ID</th>
                                                                                     <th scope="col" class="p-4">
-                                                                                        User ID</th>
+                                                                                        Username</th>
                                                                                     <th scope="col" class="p-4">
-                                                                                        Kelas ID</th>
+                                                                                        Kelas</th>
                                                                                     <th scope="col" class="p-4">
                                                                                         NIM</th>
                                                                                     <th scope="col" class="p-4">
@@ -397,18 +410,19 @@
                                                                                         </td>
                                                                                         <td
                                                                                             class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                                                            <div
-                                                                                                class="flex items-center">
-                                                                                                {{ $mahasiswa->id_user }}
-                                                                                            </div>
+                                                                                            {{ $mahasiswa->user->name }}
                                                                                         </td>
-                                                                                        <td
-                                                                                            class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                                                            <div
-                                                                                                class="flex items-center">
-                                                                                                {{ $mahasiswa->kelas_id }}
-                                                                                            </div>
-                                                                                        </td>
+                                                                                        @if ($mahasiswa->kelas_id)
+                                                                                            <td
+                                                                                                class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                                                                {{ $mahasiswa->kelas->nama }}
+                                                                                            </td>
+                                                                                        @else
+                                                                                            <td
+                                                                                                class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                                                                -
+                                                                                            </td>
+                                                                                        @endif
                                                                                         <td
                                                                                             class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                                                             <div
