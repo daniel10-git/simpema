@@ -84,6 +84,7 @@ Route::middleware(['auth', 'kaprodi'])->group(function () {
     Route::put('update-mahasiswa/{id}', [KaprodiController::class, 'updateMahasiswa'])->name('update.mahasiswa');
     Route::delete('delete-mahasiswa/{id}', [KaprodiController::class, 'destroyMahasiswa'])->name('destroy.mahasiswa');
     Route::get('/mahasiswa-cari', [KaprodiController::class, 'cariNamaMahasiswa'])->name('cari.mahasiswa');
+    Route::put('/updateakun-mahasiswa/{id_user}', [KaprodiController::class, 'updateAkun'])->name('updateakunmahasiswa');
 });
 
 //dosen

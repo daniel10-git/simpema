@@ -93,7 +93,6 @@
                                     </button>
 
                                     @include('components.tambah-mhs')
-
                                 </div>
                                 </form>
                             </div>
@@ -167,6 +166,24 @@
                                                     <div class="flex items-center space-x-4">
                                                         <!-- Modal toggle edit -->
                                                         <div class="flex items-center space-x-4">
+                                                            <button id="updateAkunMahasiswa"
+                                                                data-modal-target="updateAkunMahasiswa{{ $m->id_user }}"
+                                                                data-modal-toggle="updateAkunMahasiswa{{ $m->id_user }}"
+                                                                class="flex items-center text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-yellow-4400 dark:text-yellow-400 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-400">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                    class="h-4 w-4 mr-2 -ml-0.5" viewbox="0 0 20 20"
+                                                                    fill="currentColor" aria-hidden="true">
+                                                                    <path
+                                                                        d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                                                                    <path fill-rule="evenodd"
+                                                                        d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+                                                                        clip-rule="evenodd" />
+                                                                </svg>
+                                                                Edit Akun
+                                                            </button>
+                                                        </div>
+                                                        @include('components.editakunmhs')
+                                                        <div class="flex items-center space-x-4">
                                                             <button id="updateProductButton"
                                                                 data-modal-target="update-mhs{{ $m->id_user }}"
                                                                 data-modal-toggle="update-mhs{{ $m->id_user }}"
@@ -180,7 +197,7 @@
                                                                         d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
                                                                         clip-rule="evenodd" />
                                                                 </svg>
-                                                                Edit
+                                                                Edit Data
                                                             </button>
                                                         </div>
                                                         @include('components.edit-mhs')
@@ -229,7 +246,19 @@
                                     d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Edit
+                            Edit Akun
+                        </button>
+                        <button type="button"
+                            class="text-white w-full inline-flex items-center justify-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                            <svg aria-hidden="true" class="mr-1 -ml-1 w-5 h-5" fill="currentColor"
+                                viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                                <path fill-rule="evenodd"
+                                    d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Edit Data
                         </button>
                         <button type="button"
                             class="inline-flex w-full items-center text-white justify-center bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
