@@ -48,26 +48,32 @@ class DosenController extends Controller
     // Menyimpan data yang telah diedit
     public function updatedosen(Request $request, $id)
     {
+        $dosen = Dosen::findOrFail($id);
+        $user = User::findOrFail($dosen->id_user);
+
         // Validasi input
         $request->validate([
             'nama' => 'required|string|max:255',
             'nip' => 'required|string|max:20|unique:t_dosen,nip,' . $id,
             'kode_dosen' => 'required|string|max:10|unique:t_dosen,kode_dosen,' . $id,
-            'email' => 'required|string|email|max:255|unique:users,email,' . $request->input('id_user'),
-            'password' => 'nullable|string|min:8|confirmed',
+           'email' => 'required|string|email|max:255|unique:users,email,' . $dosen->id_user,
+            'password' => 'nullable|string|min:8',
         ]);
+       
+        // // Cari user berdasarkan ID
+        // $user = User::findOrFail($id_user);
 
-        // Temukan Dosen dan User terkait
-        $dosen = Dosen::findOrFail($id);
-        $user = User::findOrFail($dosen->id_user);
+        // // Update data user
+        $user->name = $request->name;
+        $user->email = $request->email;
 
-        // Update data di tabel users
-        $user->email = $request->input('email');
-        if ($request->filled('password')) {
-            $user->password = Hash::make($request->input('password'));
+        // Jika password diisi, update password
+        if ($request->password) {
+            $user->password = Hash::make($request->password);
         }
-        $user->update();
-
+        // Simpan perubahan
+        $user->save();
+        
         // Update data di tabel dosen
         $dosen->nama = $request->input('nama');
         $dosen->nip = $request->input('nip');
