@@ -235,21 +235,14 @@
                                                                                 {{ $dosen->user->name }}
                                                                             </div>
                                                                         </td>
-                                                                        @if ($dosen->kelas_id)
-                                                                            <td
-                                                                                class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                                                <div class="flex items-center">
-                                                                                    {{ $dosen->kelas->nama }}
-                                                                                </div>
-                                                                            </td>
-                                                                        @else
-                                                                            <td
-                                                                                class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                                                <div class="flex items-center">
-                                                                                    -
-                                                                                </div>
-                                                                            </td>
-                                                                        @endif
+
+                                                                        <td
+                                                                            class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                                            <div class="flex items-center">
+                                                                                {{ $dosen->kelas->nama }}
+                                                                            </div>
+                                                                        </td>
+
 
                                                                         <td
                                                                             class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -412,17 +405,12 @@
                                                                                             class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                                                             {{ $mahasiswa->user->name }}
                                                                                         </td>
-                                                                                        @if ($mahasiswa->kelas_id)
-                                                                                            <td
-                                                                                                class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                                                                {{ $mahasiswa->kelas->nama }}
-                                                                                            </td>
-                                                                                        @else
-                                                                                            <td
-                                                                                                class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                                                                -
-                                                                                            </td>
-                                                                                        @endif
+
+                                                                                        <td
+                                                                                            class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                                                            {{ $mahasiswa->kelas->nama }}
+                                                                                        </td>
+
                                                                                         <td
                                                                                             class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                                                             <div
