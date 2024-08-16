@@ -136,8 +136,8 @@
 
                                             </th>
                                             <th scope="col" class="p-4">Dosen ID</th>
-                                            <th scope="col" class="p-4">User ID</th>
-                                            <th scope="col" class="p-4">Kelas ID</th>
+                                            <th scope="col" class="p-4">Username</th>
+                                            <th scope="col" class="p-4">Kelas</th>
                                             <th scope="col" class="p-4">Kode Dosen</th>
                                             <th scope="col" class="p-4">NIP</th>
                                             <th scope="col" class="p-4">Nama</th>
@@ -161,15 +161,25 @@
                                                 <td
                                                     class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                     <div class="flex items-center">
-                                                        {{ $d->id_user }}
+                                                        {{ $d->user->name }}
                                                     </div>
                                                 </td>
-                                                <td
-                                                    class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                    <div class="flex items-center">
-                                                        {{ $d->kelas_id }}
-                                                    </div>
-                                                </td>
+                                                @if ($d->kelas_id)
+                                                    <td
+                                                        class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        <div class="flex items-center">
+                                                            {{ $d->kelas->nama }}
+                                                        </div>
+                                                    </td>
+                                                @else
+                                                    <td
+                                                        class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        <div class="flex items-center">
+                                                            -
+                                                        </div>
+                                                    </td>
+                                                @endif
+
                                                 <td
                                                     class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                     <div class="flex items-center">
