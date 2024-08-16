@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class editakun-dosen extends Component
+class editakundosen extends Component
 {
     /**
      * Create a new component instance.

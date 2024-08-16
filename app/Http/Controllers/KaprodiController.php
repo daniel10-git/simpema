@@ -108,7 +108,19 @@ class KaprodiController extends Controller
 
         return view('layouts.dosen', compact('dosen', 'user'));
     }
-    public function updateAkunDosen(Request $request, $id_user)
+
+
+
+
+
+
+
+
+
+
+
+    
+    public function updateAkun(Request $request, $id_user)
     {
         // Validasi inputan
         $request->validate([
