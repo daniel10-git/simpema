@@ -8,7 +8,8 @@
         <ul class="space-y-2 font-medium">
             <li>
                 <a href="{{ route('dosen.show', ['id' => Auth::user()->id]) }}"
-                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group 
+                    @if (Route::currentRouteName() == 'dosen.show') bg-gray-100 dark:bg-gray-700 @endif">
                     <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M10 2a1 1 0 0 0-1 1v1H5a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h4v1a1 1 0 0 0 2 0v-1h4a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-4V3a1 1 0 0 0-1-1Z" />
@@ -18,7 +19,8 @@
             </li>
             <li>
                 <a href="{{ route('dosen.mahasiswa') }}"
-                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group 
+                    @if (Route::currentRouteName() == 'dosen.mahasiswa') bg-gray-100 dark:bg-gray-700 @endif">
                     <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M7 2a5 5 0 0 0-5 5v6a5 5 0 0 0 5 5h6a5 5 0 0 0 5-5V7a5 5 0 0 0-5-5H7zm0 2h6a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3z" />
@@ -35,7 +37,8 @@
             @if ($dosen && $dosen->kelas_id)
                 <li>
                     <a href="{{ route('dosen.show2') }}"
-                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group 
+                        @if (Route::currentRouteName() == 'dosen.show2') bg-gray-100 dark:bg-gray-700 @endif">
                         <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 20 20">
