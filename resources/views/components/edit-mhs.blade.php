@@ -16,7 +16,7 @@
                         </button>
                     </div>
                     <!-- Modal body -->
-                    <form method="POST" action="{{ route('update-mhs', $m->id) }}">
+                    <form method="POST" action="{{ route('update.mahasiswa', $m->id) }}">
                         @csrf
                         @method('PUT')
                         <div class="grid gap-4 mb-4 sm:grid-cols-1">

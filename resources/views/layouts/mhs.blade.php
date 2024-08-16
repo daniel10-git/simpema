@@ -49,7 +49,8 @@
                             <div
                                 class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
                                 <div class="w-full md:w-1/2">
-                                    <form action="{{ route('carimhs') }}" method="POST" class="flex items-center">
+                                    <form action="{{ route('cari.mahasiswa') }}" method="GET"
+                                        class="flex items-center">
                                         <label for="simple-search" class="sr-only">Search</label>
                                         <div class="relative w-full flex">
                                             <div class="relative w-full">
@@ -107,8 +108,8 @@
                                                 </div>
                                             </th>
                                             <th scope="col" class="p-4">Mahasiswa ID</th>
-                                            <th scope="col" class="p-4">User ID</th>
-                                            <th scope="col" class="p-4">Kelas ID</th>
+                                            <th scope="col" class="p-4">Username</th>
+                                            <th scope="col" class="p-4">Kelas</th>
                                             <th scope="col" class="p-4">NIM</th>
                                             <th scope="col" class="p-4">Nama</th>
                                             <th scope="col" class="p-4">Tempat Lahir</th>
@@ -131,12 +132,20 @@
                                                 </th>
                                                 <td
                                                     class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                    {{ $m->id_user }}
+                                                    {{ $m->user->name }}
                                                 </td>
-                                                <td
-                                                    class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                    {{ $m->kelas_id }}
-                                                </td>
+                                                @if ($m->kelas_id)
+                                                    <td
+                                                        class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        {{ $m->kelas->nama }}
+                                                    </td>
+                                                @else
+                                                    <td
+                                                        class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        -
+                                                    </td>
+                                                @endif
+
                                                 <td
                                                     class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                     {{ $m->nim }}
@@ -235,7 +244,7 @@
                 </div>
 
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
-        </body>
-        @include('footer')
+</body>
+@include('footer')
 
 </html>

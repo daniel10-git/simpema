@@ -18,14 +18,11 @@ class KaprodiController extends Controller
     public function data($id)
     {
         $kaprodi = Kaprodi::findOrFail($id);
-
         return view('profile/infoakun', compact('kaprodi'));
     }
 
     public function dashboard($id)
     {
-
-
         return view('layouts/dashboard');
     }
 
@@ -33,7 +30,6 @@ class KaprodiController extends Controller
     {
         $user = Auth::user();
         $kaprodi = Kaprodi::where('id_user', $user->id)->get();
-
         return view('layouts.kaprodi', compact('kaprodi'));
     }
 
@@ -51,7 +47,6 @@ class KaprodiController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users'],
-
             'kode_dosen' => ['required', 'string'],
             'nip' => ['required', 'string'],
             'nama' => ['required', 'string'],
@@ -98,9 +93,6 @@ class KaprodiController extends Controller
 
         return redirect()->route('layouts.dosen')->with('success', 'Dosen berhasil dihapus.');
     }
-    
-
-
 
 
     public function cariNamaDosen(Request $request)
@@ -116,6 +108,56 @@ class KaprodiController extends Controller
 
         return view('layouts.dosen', compact('dosen', 'user'));
     }
+
+
+
+
+
+
+
+
+
+
+
+    
+    public function updateAkun(Request $request, $id_user)
+    {
+        // Validasi inputan
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $id_user,
+            'password' => 'nullable|string|min:8',
+        ]);
+
+        // Cari user berdasarkan ID
+        $user = User::findOrFail($id_user);
+
+        // Update data user
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        // Jika password diisi, update password
+        if ($request->password) {
+            $user->password = Hash::make($request->password);
+        }
+
+        // Simpan perubahan
+        $user->save();
+
+        // Redirect kembali ke halaman sebelumnya dengan pesan sukses
+        return redirect()->back()->with('success', 'Akun dosen berhasil diperbarui.');
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -229,6 +271,7 @@ class KaprodiController extends Controller
 
         return redirect()->back()->with('success', 'Kelas dosen berhasil diperbarui.');
     }
+
     public function destroyKelasDosen($id)
     {
         // Temukan dosen berdasarkan ID
@@ -240,8 +283,6 @@ class KaprodiController extends Controller
         // Redirect atau berikan feedback
         return redirect()->back()->with('success', 'Kelas dosen berhasil dihapus.');
     }
-
-
 
     public function updateKelasMahasiswa(Request $request)
     {
@@ -289,7 +330,7 @@ class KaprodiController extends Controller
         $mahasiswa = Mahasiswa::get();
         $user = User::select('id')->where('role', 'mahasiswa')->get();
 
-        return view('mhs', compact('mahasiswa', 'user'));
+        return view('layouts.mhs', compact('mahasiswa', 'user'));
     }
 
     public function storeMahasiswa(Request $request)
@@ -357,6 +398,6 @@ class KaprodiController extends Controller
 
         $mahasiswa = $query->get();
 
-        return view('mhs', compact('mahasiswa', 'user'));
+        return view('layouts.mhs', compact('mahasiswa', 'user'));
     }
 }
