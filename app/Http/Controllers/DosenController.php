@@ -12,21 +12,6 @@ use Illuminate\Support\Facades\Hash;
 
 class DosenController extends Controller
 {
-    public function index(Request $request)
-    {
-        $user = Auth::user();
-
-        // Ambil dosen yang sesuai dengan user yang sedang login
-        $dosen = Dosen::where('id_user', $user->id)->first();
-
-        // Pastikan $dosen ada sebelum melanjutkan
-        if (!$dosen) {
-            abort(404, 'Dosen tidak ditemukan.');
-        }
-
-        return view('dosen.index', compact('dosen'));
-    }
-
     // Show a specific dosen with associated mahasiswa and edit requests
     public function indexdosen(Request $request, $id)
     {
@@ -55,39 +40,52 @@ class DosenController extends Controller
     // Menampilkan form edit
     public function editdosen($id)
     {
-        $dosen = Dosen::with('user')->findOrFail($id);
-        return view('dosen.edit', compact('dosen'));
+        $dosen = Dosen::findOrFail($id);
+        $user = User::find($dosen->id);
+
+        if (!$user) {
+            dd('User tidak ditemukan untuk dosen ini', $dosen);
+        }
+        return view('dosen.editdosen', compact('dosen', 'user'));
     }
 
     // Menyimpan data yang telah diedit
     public function updatedosen(Request $request, $id)
     {
+        // Debugging: Tampilkan semua data yang dikirimkan
+        dd($request->all());
+    
+        // Validasi input
         $request->validate([
-            'name' => 'required|string|max:255|unique:users,name,' . $id,
-            'password' => 'nullable|string|min:8|confirmed',
             'nama' => 'required|string|max:255',
             'nip' => 'required|string|max:20|unique:t_dosen,nip,' . $id,
             'kode_dosen' => 'required|string|max:10|unique:t_dosen,kode_dosen,' . $id,
+            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+            'password' => 'nullable|string|min:8|confirmed',
         ]);
-
+    
+        // Temukan Dosen dan User terkait
         $dosen = Dosen::findOrFail($id);
-        $user = User::findOrFail($dosen->user_id);
-
+        $user = User::findOrFail($dosen->id);
+    
         // Update data di tabel users
-        $user->name = $request->input('name');
+        $user->email = $request->input('email');
         if ($request->filled('password')) {
             $user->password = Hash::make($request->input('password'));
         }
         $user->save();
-
+    
         // Update data di tabel dosen
         $dosen->nama = $request->input('nama');
         $dosen->nip = $request->input('nip');
         $dosen->kode_dosen = $request->input('kode_dosen');
         $dosen->save();
-
+    
+    
         return redirect()->route('dosen.show')->with('success', 'Data dosen berhasil diupdate.');
     }
+    
+
 
     // Handle approval or rejection of edit requests
     public function viewEditRequests()
