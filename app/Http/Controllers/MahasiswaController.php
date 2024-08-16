@@ -26,7 +26,6 @@ class MahasiswaController extends Controller
 
     public function updateMahasiswa(Request $request)
     {
-        // dd($request->all());
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $request->id_user,
@@ -54,12 +53,12 @@ class MahasiswaController extends Controller
             'nama' => $request->nama,
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tanggal_lahir,
-            'edit' => $request->edit
+            'edit' => '0'
         ]);
         return redirect()->route('tampil.mahasiswa');
     }
 
-    //request
+    //request mahasiswa
     public function AksesEdit(Request $request)
     {
         $mahasiswa = Mahasiswa::where('id', $request->id)->first();
