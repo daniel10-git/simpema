@@ -54,6 +54,7 @@ Route::middleware(['auth', 'kaprodi'])->group(function () {
         return view('/layouts.logout');
     })->name('welcome');
     Route::get('/kaprodi', [KaprodiController::class, 'indexKaprodi'])->name('kaprodiindex');
+    Route::post('/kaprodi-update', [KaprodiController::class, 'updateKaprodi'])->name('kaprodi.update');
     // Route::get('/kaprodiindex', [KaprodiController::class, 'indexKaprodi'])->name('layouts.kaprodi');
     Route::get('/kaprodi-dosen', [KaprodiController::class, 'indexDosen'])->name('layouts.dosen');
     Route::post('/store-dosen', [KaprodiController::class, 'storeDosen'])->name('storedosen');

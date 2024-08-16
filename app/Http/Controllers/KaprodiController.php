@@ -33,6 +33,37 @@ class KaprodiController extends Controller
         return view('layouts.kaprodi', compact('kaprodi'));
     }
 
+    public function updateKaprodi(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $request->id_user,
+            'password' => 'nullable|string|min:8',
+            'nama' => 'required',
+            'string',
+            'nip' => 'required',
+            'string',
+            'kode_dosen' => 'required',
+            'string',
+        ]);
+
+        $user = User::findOrFail($request->id_user);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        if ($request->password) {
+            $user->password = Hash::make($request->password);
+        }
+        $user->save();
+
+        $kaprodi = Kaprodi::where('id', $request->id)->first();
+        $kaprodi->update([
+            'nama' => $request->nama,
+            'nip' => $request->nip,
+            'kode_dosen' => $request->kode_dosen,
+        ]);
+        return redirect()->route('kaprodiindex');
+    }
+
     public function indexDosen()
     {
         $dosen = dosen::get();
