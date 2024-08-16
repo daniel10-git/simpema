@@ -28,7 +28,7 @@
                         <span class="sr-only">Close modal</span>
                     </button>
                 </div>
-                
+
                 <!-- Modal body -->
                 <div class="p-6 space-y-6">
                     <div class="grid gap-6 mb-6 md:grid-cols-2">
@@ -56,16 +56,16 @@
                         <div class="w-full">
                             <label for="email"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                            <input type="text" name="email" id="email" value="{{ $user->email }}"
+                            <input type="email" name="email" id="email" value="{{ $dosen->user->email }}"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Email" required="">
                         </div>
                         <div class="w-full">
                             <label for="password"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                            <input type="text" name="password" id="password" value="{{ $user->password }}"
+                            <input type="password" name="password" id="password"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Password" required="">
+                                placeholder="Password (Kosongkan jika tidak ingin mengubah)">
                         </div>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                         Perubahan</button>
                     <button type="button"
                         class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
-                        data-modal-hide="updateProductModal">Batal</button>
+                        data-modal-hide="updateProductModal{{ $dosen->id }}">Batal</button>
                 </div>
             </div>
         </form>
@@ -84,9 +84,14 @@
 </div>
 
 <script>
-    document.getElementById('id_user').addEventListener('change', function() {
-        var selectedOption = this.options[this.selectedIndex];
-        var userName = selectedOption.text;
-        document.getElementById('nama').value = userName;
+    document.addEventListener('DOMContentLoaded', function() {
+        var selectElement = document.getElementById('id_user');
+        if (selectElement) {
+            selectElement.addEventListener('change', function() {
+                var selectedOption = this.options[this.selectedIndex];
+                var userName = selectedOption.text;
+                document.getElementById('nama').value = userName;
+            });
+        }
     });
 </script>
