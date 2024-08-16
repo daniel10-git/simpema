@@ -185,8 +185,8 @@
                                                         @include('components.editakunmhs')
                                                         <div class="flex items-center space-x-4">
                                                             <button id="updateProductButton"
-                                                                data-modal-target="update-mhs{{ $m->id_user }}"
-                                                                data-modal-toggle="update-mhs{{ $m->id_user }}"
+                                                                data-modal-target="update-mhs{{ $m->id }}"
+                                                                data-modal-toggle="update-mhs{{ $m->id }}"
                                                                 class="flex items-center text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-yellow-4400 dark:text-yellow-400 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-400">
                                                                 <svg xmlns="http://www.w3.org/2000/svg"
                                                                     class="h-4 w-4 mr-2 -ml-0.5" viewbox="0 0 20 20"
