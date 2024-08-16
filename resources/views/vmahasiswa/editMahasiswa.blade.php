@@ -35,22 +35,31 @@
                     <form action="{{ route('update.data') }}" method="POST" class="space-y-6">
                         @csrf
                         <input type="hidden" name="id" value="{{ $mahasiswaItem->id }}" />
+                        <input type="hidden" name="id_user" value="{{ $mahasiswaItem->id_user }}" />
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {{-- kolom kiri --}}
                             <div>
                                 <div class="mb-6">
-                                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
-                                    <input type="text" id="name" name="name" value="{{ Auth::user()->name }}"
+                                    <label for="name"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+                                    <input type="text" id="name" name="name"
+                                        value="{{ $mahasiswaItem->user->name }}"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                 </div>
                                 <div class="mb-6">
-                                    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                                    <input type="password" id="password" name="password" value="{{ Auth::user()->password }}"
+                                    <label for="password"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                                    <input type="password" id="password" name="password"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                    <p class="text-gray-500 text-xs mt-1">Kosongkan jika tidak ingin mengubah password
+                                    </p>
+
                                 </div>
                                 <div class="mb-6">
-                                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                                    <input type="email" id="email" name="email" value="{{ Auth::user()->email }}"
+                                    <label for="email"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                                    <input type="email" id="email" name="email"
+                                        value="{{ $mahasiswaItem->user->email }}"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                 </div>
                             </div>
@@ -58,24 +67,31 @@
                             {{-- Kolom kanan --}}
                             <div>
                                 <div class="mb-6">
-                                    <label for="nim" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIM</label>
-                                    <input type="number" id="nim" name="nim" readonly
+                                    <label for="nim"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIM</label>
+                                    <input type="number" id="nim" name="nim"
                                         value="{{ $mahasiswaItem->nim }}"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                 </div>
                                 <div class="mb-6">
-                                    <label for="nama" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
-                                    <input type="text" id="nama" name="nama" value="{{ $mahasiswaItem->nama }}"
+                                    <label for="nama"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
+                                    <input type="text" id="nama" name="nama"
+                                        value="{{ $mahasiswaItem->nama }}"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                 </div>
                                 <div class="mb-6">
-                                    <label for="tanggal_lahir" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal Lahir</label>
+                                    <label for="tanggal_lahir"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
+                                        Lahir</label>
                                     <input type="date" id="tanggal_lahir" name="tanggal_lahir"
                                         value="{{ $mahasiswaItem->tanggal_lahir }}"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                 </div>
                                 <div class="mb-6">
-                                    <label for="tempat_lahir" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tempat Lahir</label>
+                                    <label for="tempat_lahir"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tempat
+                                        Lahir</label>
                                     <input type="text" id="tempat_lahir" name="tempat_lahir"
                                         value="{{ $mahasiswaItem->tempat_lahir }}"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
@@ -106,7 +122,7 @@
         </div>
     </div>
 
- 
+
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
