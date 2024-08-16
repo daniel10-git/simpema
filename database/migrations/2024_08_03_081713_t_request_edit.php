@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('t_request_edit', function (Blueprint $table) {
             $table->id('id');
             $table->foreignId('mahasiswa_id')->constrained('t_mahasiswa', 'id');
-            $table->foreignId('kelas_id')->unique()->constrained('t_kelas', 'id');
+            $table->foreignId('kelas_id')->constrained('t_kelas', 'id');
             $table->string('keterangan', 50);
             $table->timestamps();
         });
