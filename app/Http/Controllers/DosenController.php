@@ -52,9 +52,6 @@ class DosenController extends Controller
     // Menyimpan data yang telah diedit
     public function updatedosen(Request $request, $id)
     {
-        // Debugging: Tampilkan semua data yang dikirimkan
-        dd($request->all());
-    
         // Validasi input
         $request->validate([
             'nama' => 'required|string|max:255',
