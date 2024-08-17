@@ -24,7 +24,7 @@
                 <div
                     class="bg-gradient-to-r from-indigo-100 to-blue-100 dark:bg-gray-700 dark:from-gray-800 dark:to-gray-900 overflow-hidden shadow-lg sm:rounded-lg">
                     <div class="p-6">
-                        <h1 class="text-3xl font-extrabold mb-4 text-indigo-400 dark:text-indigo-200">Profil Dosen</h1>
+                        <h1 class="text-2xl font-extrabold mb-4 text-indigo-400 dark:text-indigo-200">Profil Dosen</h1>
 
                         <!-- Success/Error Messages -->
                         @if (session('successdosen'))
@@ -41,13 +41,13 @@
                         <div class="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-md">
                             <div class="flex items-center mb-4">
                                 <div class="text-gray-900 dark:text-gray-100">
-                                    <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+                                    <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">
                                         {{ $dosen->nama }}</h2>
-                                    <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-1">NIP :
+                                    <p class="text-s font-medium text-gray-700 dark:text-gray-300 mb-1">NIP :
                                         {{ $dosen->nip }}</p>
-                                    <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-1">Kode Dosen :
+                                    <p class="text-s font-medium text-gray-700 dark:text-gray-300 mb-1">Kode Dosen :
                                         {{ $dosen->kode_dosen }}</p>
-                                    <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-4">Wali Kelas :
+                                    <p class="text-s font-medium text-gray-700 dark:text-gray-300 mb-4">Wali Kelas :
                                         {{ $dosen->kelas->nama ?? 'Belum Ditentukan' }}</p>
                                     <button type="button" id="updateProductButton"
                                         data-modal-target="updateProductModal{{ $dosen->id }}"
