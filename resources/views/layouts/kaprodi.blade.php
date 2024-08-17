@@ -48,6 +48,7 @@
                                             {{ session('success') }}
                                         </div>
                                     @endif
+
                                     <div class="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-md">
                                         <div class="flex items-center mb-4">
                                             <div class="text-gray-900 dark:text-gray-100">
