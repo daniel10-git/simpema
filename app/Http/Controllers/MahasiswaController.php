@@ -55,7 +55,7 @@ class MahasiswaController extends Controller
             'tanggal_lahir' => $request->tanggal_lahir,
             'edit' => '0'
         ]);
-        return redirect()->route('tampil.mahasiswa');
+        return redirect()->route('tampil.mahasiswa')->with('success', 'Mahasiswa berhasil diperbarui.');
     }
 
     //request mahasiswa
