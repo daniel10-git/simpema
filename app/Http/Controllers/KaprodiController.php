@@ -322,12 +322,20 @@ class KaprodiController extends Controller
     }
 
     public function destroyKelas($id)
-    {
+{
+    try {
+        // Temukan kelas berdasarkan ID dan hapus
         $kelas = Kelas::findOrFail($id);
         $kelas->delete();
 
-        return redirect()->route('layouts.kelas')->with('deleted', 'Kelas berhasil dihapus.');
+        // Redirect dengan pesan sukses jika penghapusan berhasil
+        return redirect()->route('layouts.kelas')->with('success', 'Kelas berhasil dihapus.');
+    } catch (\Exception$e) {
+        // Redirect dengan pesan kesalahan jika terjadi pengecualian
+        return redirect()->route('layouts.kelas')->with('error', 'Terjadi kesalahan saat menghapus kelas. Silakan coba lagi.');
     }
+}
+
 
 
 
