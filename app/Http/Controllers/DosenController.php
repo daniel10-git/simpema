@@ -128,15 +128,13 @@ class DosenController extends Controller
     }
 
     public function hapusrequest($id)
-{
+    {
         $request = RequestEdit::findOrFail($id);
         $request->delete();
         return redirect()->route('dosen.show2', ['id' => Auth::user()->id])->with('error', 'Permintaan Akses Edit telah anda tolak.');
         // Log the error or handle it
-    
-}
 
-    
+    }
 
 
     public function create()
@@ -244,7 +242,7 @@ class DosenController extends Controller
         $mahasiswa->save();
 
         // Redirect to the show route of the found Dosen
-        return redirect()->route('dosen.show', $dosen->id)->with('error', 'Kelas mahasiswa berhasil dihapus.');
+        return redirect()->route('dosen.show', $dosen->id)->with('error', 'Mahasiswa telah dikeluarkan dari kelas.');
     }
 
 
