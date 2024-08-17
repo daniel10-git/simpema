@@ -71,24 +71,22 @@
                 <div class="max-w-full mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="p-6 text-gray-900 dark:text-gray-100">
-
-                            <!-- Success/Error Messages -->
-                            @if (session('successmhs'))
-                                <div id="successMessage" class="bg-green-500 text-white font-bold rounded-lg p-4 mb-4">
-                                    {{ session('successmhs') }}
-                                </div>
-                            @endif
-                            @if (session('errormhs'))
-                                <div id="errorMessage" class="bg-red-500 text-white font-bold rounded-lg p-4 mb-4">
-                                    {{ session('errormhs') }}
-                                </div>
-                            @endif
-
                             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                                 {{ __('Daftar Mahasiswa') }}
                                 <br>
                                 <br>
                             </h2>
+                            <!-- Success/Error Messages -->
+                            @if (session('successmhs'))
+                                <div id="successMessage" class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800">
+                                    {{ session('successmhs') }}
+                                </div>
+                            @endif
+                            @if (session('errormhs'))
+                                <div id="errorMessage" class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800">
+                                    {{ session('errormhs') }}
+                                </div>
+                            @endif
                             <div
                                 class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
                                 <form method="GET" action="{{ route('dosen.show', ['id' => Auth::user()->id]) }}"
