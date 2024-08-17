@@ -42,6 +42,12 @@
                                 <div class="p-6">
                                     <h1 class="text-3xl font-extrabold mb-4 text-indigo-400 dark:text-indigo-100">Profil
                                         Kaprodi</h1>
+                                    @if (session('success'))
+                                        <div class="p-4 mb-4 px-4 py-3 font-medium text-gray-900 whitespace-nowrap  dark:bg-gray-700  bg-green-100 rounded-lgdark:bg-green-200 dark:text-green-800"
+                                            role="alert">
+                                            {{ session('success') }}
+                                        </div>
+                                    @endif
                                     <div class="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-md">
                                         <div class="flex items-center mb-4">
                                             <div class="text-gray-900 dark:text-gray-100">
