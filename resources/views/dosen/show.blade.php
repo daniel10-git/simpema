@@ -22,9 +22,9 @@
         <div class="py-8 px-8 text-gray-900 dark:text-gray-100">
             <div class="max-w-full mx-auto sm:px-6 lg:px-4">
                 <div
-                    class="bg-gradient-to-r from-indigo-100 to-blue-100 dark:bg-gray-800 overflow-hidden shadow-lg sm:rounded-lg">
+                    class="bg-gradient-to-r from-indigo-100 to-blue-100 dark:bg-gray-700 dark:from-gray-800 dark:to-gray-900 overflow-hidden shadow-lg sm:rounded-lg">
                     <div class="p-6">
-                        <h1 class="text-3xl font-extrabold mb-4 text-indigo-400 dark:text-indigo-100">Profil Dosen</h1>
+                        <h1 class="text-3xl font-extrabold mb-4 text-indigo-400 dark:text-indigo-200">Profil Dosen</h1>
                         <div class="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-md">
                             <div class="flex items-center mb-4">
                                 <div class="text-gray-900 dark:text-gray-100">

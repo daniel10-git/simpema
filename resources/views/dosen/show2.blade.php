@@ -17,8 +17,9 @@
         </h2>
     </x-slot>
 
+  <div class="ml-60 p-2">
     <div class="py-8 px-8 bg-gray-100 dark:bg-gray-900">
-        <div class="max-w-full mx-auto sm:px-6 lg:px-64">
+        <div class="max-w-full mx-auto sm:px-6 lg:px-4">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h2 class="text-2xl font-bold mb-4 text-center">Request Edit</h2>
@@ -89,4 +90,5 @@
             </div>
         </div>
     </div>
+  </div>
 </body>
