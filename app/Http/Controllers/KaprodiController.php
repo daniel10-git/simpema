@@ -304,7 +304,7 @@ class KaprodiController extends Controller
         // Update kelas dosen
         Dosen::whereIn('id', $dosenIds)->update(['kelas_id' => $idKelas]);
 
-        return redirect()->back()->with('success', 'Kelas dosen berhasil diperbarui.');
+        return redirect()->back()->with('success', 'Dosen berhasil dipindahkan ke kelas.');
     }
 
     public function destroyKelasDosen($id)
@@ -316,7 +316,7 @@ class KaprodiController extends Controller
         $dosen->update(['kelas_id' => null]);
 
         // Redirect atau berikan feedback
-        return redirect()->back()->with('deleted', 'Kelas dosen berhasil dihapus.');
+        return redirect()->back()->with('deleted', 'Dosen berhasil dikeluarkan dari kelas.');
     }
 
     public function updateKelasMahasiswa(Request $request)
@@ -347,7 +347,7 @@ class KaprodiController extends Controller
         // Perbarui kelas mahasiswa
         Mahasiswa::whereIn('id', $mahasiswaIds)->update(['kelas_id' => $idKelas]);
 
-        return redirect()->back()->with('success', 'Kelas mahasiswa berhasil diperbarui.');
+        return redirect()->back()->with('success', 'Mahasiswa berhasil dipindahkan ke kelas.');
     }
 
     public function destroyKelasMahasiswa($id)
@@ -356,7 +356,7 @@ class KaprodiController extends Controller
 
         $mahasiswa->update(['kelas_id' => null]);
 
-        return redirect()->back()->with('deleted', 'Kelas dosen berhasil dihapus.');
+        return redirect()->back()->with('deleted', 'Mahasiswa berhasil dikeluarkan dari kelas.');
     }
 
 

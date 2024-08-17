@@ -43,7 +43,7 @@
                                     <h1 class="text-3xl font-extrabold mb-4 text-indigo-400 dark:text-indigo-100">Profil
                                         Kaprodi</h1>
                                     @if (session('success'))
-                                        <div class="p-4 mb-4 px-4 py-3 font-medium text-gray-900 whitespace-nowrap  dark:bg-gray-700  bg-green-100 rounded-lgdark:bg-green-200 dark:text-green-800"
+                                        <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
                                             role="alert">
                                             {{ session('success') }}
                                         </div>
