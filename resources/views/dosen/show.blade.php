@@ -25,13 +25,30 @@
                     class="bg-gradient-to-r from-indigo-100 to-blue-100 dark:bg-gray-700 dark:from-gray-800 dark:to-gray-900 overflow-hidden shadow-lg sm:rounded-lg">
                     <div class="p-6">
                         <h1 class="text-3xl font-extrabold mb-4 text-indigo-400 dark:text-indigo-200">Profil Dosen</h1>
+
+                        <!-- Success/Error Messages -->
+                        @if (session('success'))
+                            <div id="successMessage" class="bg-green-500 text-white font-bold rounded-lg p-4 mb-4">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+                        @if (session('error'))
+                            <div id="errorMessage" class="bg-red-500 text-white font-bold rounded-lg p-4 mb-4">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+
                         <div class="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-md">
                             <div class="flex items-center mb-4">
                                 <div class="text-gray-900 dark:text-gray-100">
-                                    <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">{{ $dosen->nama }}</h2>
-                                    <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-1">NIP : {{ $dosen->nip }}</p>
-                                    <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-1">Kode Dosen : {{ $dosen->kode_dosen }}</p>
-                                    <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-4">Wali Kelas : {{ $dosen->kelas->nama ?? 'Belum Ditentukan' }}</p>
+                                    <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+                                        {{ $dosen->nama }}</h2>
+                                    <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-1">NIP :
+                                        {{ $dosen->nip }}</p>
+                                    <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-1">Kode Dosen :
+                                        {{ $dosen->kode_dosen }}</p>
+                                    <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-4">Wali Kelas :
+                                        {{ $dosen->kelas->nama ?? 'Belum Ditentukan' }}</p>
                                     <button type="button" id="updateProductButton"
                                         data-modal-target="updateProductModal{{ $dosen->id }}"
                                         data-modal-toggle="updateProductModal{{ $dosen->id }}"
@@ -113,11 +130,13 @@
                                     @foreach ($mahasiswa as $m)
                                         <tr>
                                             <td class="px-6 py-4 whitespace-nowrap">{{ $m->nama }}</td>
-                                            <td class="px-6 py-4 whitespace-nowrap">{{ $m->kelas->nama }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                {{ $m->kelas->nama ?? 'Belum Ditentukan' }}</td>
                                             <td class="px-6 py-4 whitespace-nowrap">{{ $m->nim }}</td>
                                             <td class="px-6 py-4 whitespace-nowrap">{{ $m->tempat_lahir }}</td>
                                             <td class="px-6 py-4 whitespace-nowrap">{{ $m->tanggal_lahir }}</td>
                                             <td class="px-6 py-4 whitespace-nowrap">
+                                                <!-- Add your actions here -->
                                                 <button type="button" id="updateProductButton"
                                                     data-modal-target="updateProductModal{{ $m->id }}"
                                                     data-modal-toggle="updateProductModal{{ $m->id }}"
@@ -159,8 +178,8 @@
                                                                     fill="none" stroke="currentColor"
                                                                     viewbox="0 0 24 24"
                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                                        stroke-width="2"
+                                                                    <path stroke-linecap="round"
+                                                                        stroke-linejoin="round" stroke-width="2"
                                                                         d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                                 </svg>
                                                                 <h3
@@ -184,25 +203,36 @@
                                                                         class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
                                                                         Tidak
                                                                     </button>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
-                            <div class="m-5">
-                                {{ $mahasiswa->links() }}
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         @endif
     </div>
+
+    <script>
+        // Menghilangkan pesan setelah 3 detik dan memastikan scroll normal
+        setTimeout(function() {
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+
+            if (successMessage) {
+                successMessage.style.display = 'none';
+            }
+
+            if (errorMessage) {
+                errorMessage.style.display = 'none';
+            }
+
+            // Mengaktifkan kembali scroll pada body jika sebelumnya terganggu
+            document.body.style.overflow = 'auto';
+        }, 3000);
+    </script>
 </body>
 
 </html>

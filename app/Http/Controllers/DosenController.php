@@ -35,6 +35,7 @@ class DosenController extends Controller
         $mahasiswanull = Mahasiswa::whereNull('kelas_id')->get();
 
         return view('dosen.show', compact('dosen', 'mahasiswa', 'mahasiswanull', 'search'));
+        
     }
 
     // Menampilkan form edit
@@ -110,7 +111,7 @@ class DosenController extends Controller
         $requestEdit->status = $request->input('status');
         $requestEdit->save();
 
-        return redirect()->route('dosen.viewEditRequests')->with('success', 'Request updated successfully.');
+        return redirect()->route('dosen.viewEditRequests')->with('success', 'Permintaan Akses sukses.');
     }
     public function approveEditRequest($id)
     {
@@ -124,7 +125,7 @@ class DosenController extends Controller
         // Optionally, delete the request after approval
         $requestEdit->delete();
 
-        return redirect()->back()->with('success', 'Request has been approved. The student can now edit their data.');
+        return redirect()->back()->with('success', 'Permintaan Akses Edit telah anda terima.');
     }
 
     public function hapusrequest($id)
@@ -132,7 +133,7 @@ class DosenController extends Controller
         $request = RequestEdit::findOrFail($id);
         $request->delete();
 
-        return redirect()->route('dosen.index')->with('success', 'Request has been rejected.');
+        return redirect()->route('dosen.index')->with('success', 'Permintaan Akses Edit telah anda tolak.');
     }
 
     public function create()
@@ -146,7 +147,7 @@ class DosenController extends Controller
             return view('dosen.create', ['kelas_id' => $dosen->kelas_id, 'users' => $users]);
         }
 
-        return redirect()->route('dosen.index')->with('error', 'You do not have permission to access this feature.');
+        return redirect()->route('dosen.show')->with('error', 'You do not have permission to access this feature.');
     }
 
     public function store(Request $request)
@@ -193,7 +194,7 @@ class DosenController extends Controller
             return view('dosen.editmhs', compact('mahasiswa'));
         }
 
-        return redirect()->route('dosen.index')->with('error', 'You do not have permission to edit this data.');
+        return redirect()->route('dosen.show')->with('error', 'You do not have permission to edit this data.');
     }
     public function update(Request $request, $id)
     {
@@ -216,10 +217,10 @@ class DosenController extends Controller
             // Update the Mahasiswa data
             $mahasiswa->update($validatedData);
 
-            return redirect()->route('dosen.show', $dosen->id)->with('success', 'Mahasiswa data updated successfully.');
+            return redirect()->route('dosen.show', $dosen->id)->with('success', 'Data Mahasiswa telah diperbarui.');
         }
 
-        return redirect()->route('dosen.index')->with('error', 'You do not have permission to update this data.');
+        return redirect()->route('dosen.show')->with('error', 'You do not have permission to update this data.');
     }
 
 
