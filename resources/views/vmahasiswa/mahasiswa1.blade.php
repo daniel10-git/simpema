@@ -31,10 +31,16 @@
             <div class="flex justify-center my-6">
                 <h2 class="text-2xl font-bold text-gray-700">Data Mahasiswa</h2>
             </div>
+            @if (session('success'))
+                <div id="successAlert" class="p-6 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800 max-w-md mx-auto" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif
 
             @foreach ($mahasiswa as $mhs)
                 <!-- Profile Section -->
                 <div class="max-w-md mx-auto bg-white shadow-md rounded-lg p-6 mb-4 card">
+                   
                     <div class="flex flex-col justify-between h-full">
                         <div>
                             <div class="flex items-center mb-6">
@@ -111,6 +117,22 @@
     @include('vmahasiswa.editMahasiswa')
     @include('vmahasiswa.requestedit')
     @include('footer')
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var alert = document.getElementById('successAlert');
+
+        if (alert) {
+            var hideAfter = 3000;
+
+            setTimeout(function() {
+                alert.style.opacity = 0;
+                setTimeout(function() {
+                    alert.style.display = 'none'; 
+                }, 600); 
+            }, hideAfter);
+        }
+    });</script>
 </body>
 
 </html>

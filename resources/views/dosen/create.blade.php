@@ -1,6 +1,6 @@
 <!-- Tambah Modal -->
 <div id="defaultModal" aria-hidden="true"
-    class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    class="hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-50 bg-black bg-opacity-50 justify-center items-center">
     <div class="relative w-full max-w-2xl max-h-full">
         <form action="{{ route('dosen.store') }}" method="POST" enctype="multipart/form-data">
             @csrf

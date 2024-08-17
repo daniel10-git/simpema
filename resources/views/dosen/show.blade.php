@@ -22,19 +22,42 @@
         <div class="py-8 px-8 text-gray-900 dark:text-gray-100">
             <div class="max-w-full mx-auto sm:px-6 lg:px-4">
                 <div
-                    class="bg-gradient-to-r from-indigo-100 to-blue-100 dark:bg-gray-800 overflow-hidden shadow-lg sm:rounded-lg">
+                    class="bg-gradient-to-r from-indigo-100 to-blue-100 dark:bg-gray-700 dark:from-gray-800 dark:to-gray-900 overflow-hidden shadow-lg sm:rounded-lg">
                     <div class="p-6">
-                        <h1 class="text-3xl font-extrabold mb-4 text-indigo-400 dark:text-indigo-100">Profil Dosen</h1>
+                        <h1 class="text-2xl font-extrabold mb-4 text-indigo-400 dark:text-indigo-200">Profil Dosen</h1>
+
+                        <!-- Success/Error Messages -->
+                        @if (session('successdosen'))
+                            <div id="successMessage" class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800">
+                                {{ session('successdosen') }}
+                            </div>
+                        @endif
+                        @if (session('errordosen'))
+                            <div id="errorMessage" class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800">
+                                {{ session('errordosen') }}
+                            </div>
+                        @endif
+
                         <div class="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-md">
                             <div class="flex items-center mb-4">
                                 <div class="text-gray-900 dark:text-gray-100">
-                                    <h1 class="text-2xl font-bold mb-6">{{ $dosen->nama }}</h1>
-                                    <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">NIP :
+                                    <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+                                        {{ $dosen->nama }}</h2>
+                                    <p class="text-s font-medium text-gray-700 dark:text-gray-300 mb-1">NIP :
                                         {{ $dosen->nip }}</p>
-                                    <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Kode Dosen :
+                                    <p class="text-s font-medium text-gray-700 dark:text-gray-300 mb-1">Kode Dosen :
                                         {{ $dosen->kode_dosen }}</p>
-                                    <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Wali Kelas :
+                                    <p class="text-s font-medium text-gray-700 dark:text-gray-300 mb-4">Wali Kelas :
                                         {{ $dosen->kelas->nama ?? 'Belum Ditentukan' }}</p>
+                                    <button type="button" id="updateProductButton"
+                                        data-modal-target="updateProductModal{{ $dosen->id }}"
+                                        data-modal-toggle="updateProductModal{{ $dosen->id }}"
+                                        class="block text-white bg-yellow-500 hover:bg-yellow-700 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-yellow-400 dark:hover:bg-yellow-500 dark:focus:ring-yellow-600">
+                                        <i class="fas fa-edit"></i>
+                                        Edit
+                                    </button>
+
+                                    @include('dosen.editdosen')
                                 </div>
                             </div>
                         </div>
@@ -53,6 +76,17 @@
                                 <br>
                                 <br>
                             </h2>
+                            <!-- Success/Error Messages -->
+                            @if (session('successmhs'))
+                                <div id="successMessage" class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800">
+                                    {{ session('successmhs') }}
+                                </div>
+                            @endif
+                            @if (session('errormhs'))
+                                <div id="errorMessage" class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800">
+                                    {{ session('errormhs') }}
+                                </div>
+                            @endif
                             <div
                                 class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
                                 <form method="GET" action="{{ route('dosen.show', ['id' => Auth::user()->id]) }}"
@@ -107,11 +141,13 @@
                                     @foreach ($mahasiswa as $m)
                                         <tr>
                                             <td class="px-6 py-4 whitespace-nowrap">{{ $m->nama }}</td>
-                                            <td class="px-6 py-4 whitespace-nowrap">{{ $m->kelas->nama }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                {{ $m->kelas->nama ?? 'Belum Ditentukan' }}</td>
                                             <td class="px-6 py-4 whitespace-nowrap">{{ $m->nim }}</td>
                                             <td class="px-6 py-4 whitespace-nowrap">{{ $m->tempat_lahir }}</td>
                                             <td class="px-6 py-4 whitespace-nowrap">{{ $m->tanggal_lahir }}</td>
                                             <td class="px-6 py-4 whitespace-nowrap">
+                                                <!-- Add your actions here -->
                                                 <button type="button" id="updateProductButton"
                                                     data-modal-target="updateProductModal{{ $m->id }}"
                                                     data-modal-toggle="updateProductModal{{ $m->id }}"
@@ -131,7 +167,7 @@
 
                                                 <!-- Delete Modal -->
                                                 <div id="delete-modal-{{ $m->id }}" tabindex="-1"
-                                                    class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                    class="hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-50 bg-black bg-opacity-50 justify-center items-center">
                                                     <div class="relative w-full h-auto max-w-md max-h-full">
                                                         <div
                                                             class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -153,8 +189,8 @@
                                                                     fill="none" stroke="currentColor"
                                                                     viewbox="0 0 24 24"
                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                                        stroke-width="2"
+                                                                    <path stroke-linecap="round"
+                                                                        stroke-linejoin="round" stroke-width="2"
                                                                         d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                                 </svg>
                                                                 <h3
@@ -180,23 +216,36 @@
                                                                     </button>
                                                                 </form>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
-                            <div class="m-5">
-                                {{ $mahasiswa->links() }}
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         @endif
     </div>
+
+    <script>
+        // Menghilangkan pesan setelah 3 detik dan memastikan scroll normal
+        setTimeout(function() {
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+
+            if (successMessage) {
+                successMessage.style.display = 'none';
+            }
+
+            if (errorMessage) {
+                errorMessage.style.display = 'none';
+            }
+
+            // Mengaktifkan kembali scroll pada body jika sebelumnya terganggu
+            document.body.style.overflow = 'auto';
+        }, 3000);
+    </script>
 </body>
 
 </html>

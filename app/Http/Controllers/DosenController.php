@@ -12,21 +12,6 @@ use Illuminate\Support\Facades\Hash;
 
 class DosenController extends Controller
 {
-    public function index(Request $request)
-    {
-        $user = Auth::user();
-
-        // Ambil dosen yang sesuai dengan user yang sedang login
-        $dosen = Dosen::where('id_user', $user->id)->first();
-
-        // Pastikan $dosen ada sebelum melanjutkan
-        if (!$dosen) {
-            abort(404, 'Dosen tidak ditemukan.');
-        }
-
-        return view('dosen.index', compact('dosen'));
-    }
-
     // Show a specific dosen with associated mahasiswa and edit requests
     public function indexdosen(Request $request, $id)
     {
@@ -55,39 +40,52 @@ class DosenController extends Controller
     // Menampilkan form edit
     public function editdosen($id)
     {
-        $dosen = Dosen::with('user')->findOrFail($id);
-        return view('dosen.edit', compact('dosen'));
+        $dosen = Dosen::findOrFail($id);
+        $user = User::find($dosen->id);
+        return view('dosen.editdosen', compact('dosen', 'user'));
     }
 
     // Menyimpan data yang telah diedit
     public function updatedosen(Request $request, $id)
     {
+        $dosen = Dosen::findOrFail($id);
+        $user = User::findOrFail($dosen->id_user);
+
+        // Validasi input
         $request->validate([
-            'name' => 'required|string|max:255|unique:users,name,' . $id,
-            'password' => 'nullable|string|min:8|confirmed',
             'nama' => 'required|string|max:255',
             'nip' => 'required|string|max:20|unique:t_dosen,nip,' . $id,
             'kode_dosen' => 'required|string|max:10|unique:t_dosen,kode_dosen,' . $id,
+            'email' => 'required|string|email|max:255|unique:users,email,' . $dosen->id_user,
+            'password' => 'nullable|string|min:8',
         ]);
 
-        $dosen = Dosen::findOrFail($id);
-        $user = User::findOrFail($dosen->user_id);
+        // // Cari user berdasarkan ID
+        // $user = User::findOrFail($id_user);
 
-        // Update data di tabel users
-        $user->name = $request->input('name');
-        if ($request->filled('password')) {
-            $user->password = Hash::make($request->input('password'));
+        // // Update data user
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        // Jika password diisi, update password
+        if ($request->password) {
+            $user->password = Hash::make($request->password);
         }
+        // Simpan perubahan
         $user->save();
 
         // Update data di tabel dosen
         $dosen->nama = $request->input('nama');
         $dosen->nip = $request->input('nip');
         $dosen->kode_dosen = $request->input('kode_dosen');
-        $dosen->save();
+        $dosen->update();
 
-        return redirect()->route('dosen.show')->with('success', 'Data dosen berhasil diupdate.');
+        return redirect()->route('dosen.show', $id)->with('successdosen', 'Data dosen berhasil diupdate.');
     }
+
+
+
+
 
     // Handle approval or rejection of edit requests
     public function viewEditRequests()
@@ -112,7 +110,7 @@ class DosenController extends Controller
         $requestEdit->status = $request->input('status');
         $requestEdit->save();
 
-        return redirect()->route('dosen.viewEditRequests')->with('success', 'Request updated successfully.');
+        return redirect()->route('dosen.viewEditRequests')->with('success', 'Permintaan Akses sukses.');
     }
     public function approveEditRequest($id)
     {
@@ -126,16 +124,18 @@ class DosenController extends Controller
         // Optionally, delete the request after approval
         $requestEdit->delete();
 
-        return redirect()->back()->with('success', 'Request has been approved. The student can now edit their data.');
+        return redirect()->back()->with('success', 'Permintaan Akses Edit telah anda terima.');
     }
 
     public function hapusrequest($id)
     {
         $request = RequestEdit::findOrFail($id);
         $request->delete();
+        return redirect()->route('dosen.show2', ['id' => Auth::user()->id])->with('error', 'Permintaan Akses Edit telah anda tolak.');
+        // Log the error or handle it
 
-        return redirect()->route('dosen.index')->with('success', 'Request has been rejected.');
     }
+
 
     public function create()
     {
@@ -148,7 +148,7 @@ class DosenController extends Controller
             return view('dosen.create', ['kelas_id' => $dosen->kelas_id, 'users' => $users]);
         }
 
-        return redirect()->route('dosen.index')->with('error', 'You do not have permission to access this feature.');
+        return redirect()->route('dosen.show')->with('error', 'You do not have permission to access this feature.');
     }
 
     public function store(Request $request)
@@ -178,7 +178,7 @@ class DosenController extends Controller
             }
         }
 
-        return redirect()->route('dosen.show', $dosen->id)->with('success', 'Data mahasiswa berhasil diperbarui dan kelas telah ditetapkan.');
+        return redirect()->route('dosen.show', $dosen->id)->with('successmhs', 'Data mahasiswa berhasil diperbarui dan kelas telah ditetapkan.');
     }
 
 
@@ -195,7 +195,7 @@ class DosenController extends Controller
             return view('dosen.editmhs', compact('mahasiswa'));
         }
 
-        return redirect()->route('dosen.index')->with('error', 'You do not have permission to edit this data.');
+        return redirect()->route('dosen.show')->with('error', 'You do not have permission to edit this data.');
     }
     public function update(Request $request, $id)
     {
@@ -218,10 +218,10 @@ class DosenController extends Controller
             // Update the Mahasiswa data
             $mahasiswa->update($validatedData);
 
-            return redirect()->route('dosen.show', $dosen->id)->with('success', 'Mahasiswa data updated successfully.');
+            return redirect()->route('dosen.show', $dosen->id)->with('successmhs', 'Data Mahasiswa telah diperbarui.');
         }
 
-        return redirect()->route('dosen.index')->with('error', 'You do not have permission to update this data.');
+        return redirect()->route('dosen.show')->with('error', 'You do not have permission to update this data.');
     }
 
 
@@ -234,7 +234,7 @@ class DosenController extends Controller
 
         // If no Dosen is found, you might want to handle this case
         if (!$dosen) {
-            return redirect()->route('dosen.index')->with('error', 'Dosen not found.');
+            return redirect()->route('dosen.show')->with('error', 'Dosen not found.');
         }
 
         // Set kelas_id to NULL instead of deleting the record
@@ -242,7 +242,7 @@ class DosenController extends Controller
         $mahasiswa->save();
 
         // Redirect to the show route of the found Dosen
-        return redirect()->route('dosen.show', $dosen->id)->with('success', 'Kelas mahasiswa berhasil dihapus.');
+        return redirect()->route('dosen.show', $dosen->id)->with('errormhs', 'Mahasiswa telah dikeluarkan dari kelas.');
     }
 
 

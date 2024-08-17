@@ -46,6 +46,31 @@
                                     </h5>
                                 </div>
                             </div>
+                            @if ($errors->any())
+                                <div class="p-4 mb-4 mx-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+                                    role="alert">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @elseif (session('success'))
+                                <div class="p-4 mb-4 mx-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
+                                    role="alert">
+                                    {{ session('success') }}
+                                </div>
+                            @elseif (session('deleted'))
+                                <div class="p-4 mb-4 mx-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+                                    role="alert">
+                                    {{ session('deleted') }}
+                                </div>
+                            @elseif (session('error'))
+                                <div class="p-4 mb-4 mx-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+                                    role="alert">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
                             <div
                                 class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
                                 <div class="w-full md:w-1/2">
@@ -213,9 +238,12 @@
                         </button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
 
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
-        </body>
-        @include('footer')
+</body>
+@include('footer')
 
 </html>

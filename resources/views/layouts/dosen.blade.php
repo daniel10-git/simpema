@@ -46,6 +46,26 @@
                                     </h5>
                                 </div>
                             </div>
+                            @if (session('success'))
+                                <div class="p-4 mb-4 mx-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
+                                    role="alert">
+                                    {{ session('success') }}
+                                </div>
+                            @elseif (session('deleted'))
+                                <div class="p-4 mb-4 mx-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+                                    role="alert">
+                                    {{ session('deleted') }}
+                                </div>
+                            @elseif ($errors->any())
+                                <div class="p-4 mb-4 mx-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+                                    role="alert">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             <div
                                 class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
                                 <div class="w-full md:w-1/2">
@@ -127,6 +147,8 @@
                                     </div>
                                 </div>
                             </div>
+
+
                             <div class="overflow-x-auto">
                                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                     <thead
@@ -136,8 +158,8 @@
 
                                             </th>
                                             <th scope="col" class="p-4">Dosen ID</th>
-                                            <th scope="col" class="p-4">User ID</th>
-                                            <th scope="col" class="p-4">Kelas ID</th>
+                                            <th scope="col" class="p-4">Username</th>
+                                            <th scope="col" class="p-4">Kelas</th>
                                             <th scope="col" class="p-4">Kode Dosen</th>
                                             <th scope="col" class="p-4">NIP</th>
                                             <th scope="col" class="p-4">Nama</th>
@@ -161,15 +183,25 @@
                                                 <td
                                                     class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                     <div class="flex items-center">
-                                                        {{ $d->id_user }}
+                                                        {{ $d->user->name }}
                                                     </div>
                                                 </td>
-                                                <td
-                                                    class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                    <div class="flex items-center">
-                                                        {{ $d->kelas_id }}
-                                                    </div>
-                                                </td>
+                                                @if ($d->kelas_id)
+                                                    <td
+                                                        class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        <div class="flex items-center">
+                                                            {{ $d->kelas->nama }}
+                                                        </div>
+                                                    </td>
+                                                @else
+                                                    <td
+                                                        class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        <div class="flex items-center">
+                                                            -
+                                                        </div>
+                                                    </td>
+                                                @endif
+
                                                 <td
                                                     class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                     <div class="flex items-center">
@@ -195,6 +227,24 @@
                                                         <!-- Modal toggle edit -->
                                                         <div class="flex items-center space-x-4">
                                                             <button id="updateProductButton"
+                                                                data-modal-target="updateAkunDosen{{ $d->id_user }}"
+                                                                data-modal-toggle="updateAkunDosen{{ $d->id_user }}"
+                                                                class="flex items-center text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-yellow-4400 dark:text-yellow-400 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-400">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                    class="h-4 w-4 mr-2 -ml-0.5" viewbox="0 0 20 20"
+                                                                    fill="currentColor" aria-hidden="true">
+                                                                    <path
+                                                                        d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                                                                    <path fill-rule="evenodd"
+                                                                        d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+                                                                        clip-rule="evenodd" />
+                                                                </svg>
+                                                                Edit Akun
+                                                            </button>
+                                                        </div>
+                                                        @include('components.editakun-dosen')
+                                                        <div class="flex items-center space-x-4">
+                                                            <button id="updateProductButton"
                                                                 data-modal-target="updateDosen{{ $d->id_user }}"
                                                                 data-modal-toggle="updateDosen{{ $d->id_user }}"
                                                                 class="flex items-center text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-yellow-4400 dark:text-yellow-400 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-400">
@@ -207,7 +257,7 @@
                                                                         d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
                                                                         clip-rule="evenodd" />
                                                                 </svg>
-                                                                Edit
+                                                                Edit Data
                                                             </button>
                                                         </div>
                                                         @include('components.edit-dosen')
@@ -282,6 +332,7 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
+
 </body>
 @include('footer')
 

@@ -25,11 +25,12 @@ class MahasiswaSeeder extends Seeder
 
         $kelasId = 1;
         $studentCountInClass = 0;
+        $counter = 1; // Start the counter from 1
 
         foreach ($mahasiswaUsers as $mahasiswaUser) {
             // Create Mahasiswa record
             Mahasiswa::create([
-                'id' => $mahasiswaUser->id,
+                'id' => $counter, // Use the counter for the id
                 'id_user' => $mahasiswaUser->id,
                 'kelas_id' => $kelasId,
                 'nama' => $mahasiswaUser->name,
@@ -41,6 +42,7 @@ class MahasiswaSeeder extends Seeder
 
             // Increment the count of students in the current class
             $studentCountInClass++;
+            $counter++; // Increment the counter
 
             // Check if the current class has reached its capacity
             if ($studentCountInClass >= 10) {

@@ -6,6 +6,7 @@ use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestController;
 use App\Http\Middleware\MahasiswaMiddleware;
+use App\Models\Kaprodi;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,23 +54,25 @@ Route::middleware(['auth', 'kaprodi'])->group(function () {
         return view('/layouts.logout');
     })->name('welcome');
     Route::get('/kaprodi', [KaprodiController::class, 'indexKaprodi'])->name('kaprodiindex');
+    Route::post('/kaprodi-update', [KaprodiController::class, 'updateKaprodi'])->name('kaprodi.update');
     // Route::get('/kaprodiindex', [KaprodiController::class, 'indexKaprodi'])->name('layouts.kaprodi');
-    Route::get('/dosen', [KaprodiController::class, 'indexDosen'])->name('layouts.dosen');
+    Route::get('/kaprodi-dosen', [KaprodiController::class, 'indexDosen'])->name('layouts.dosen');
     Route::post('/store-dosen', [KaprodiController::class, 'storeDosen'])->name('storedosen');
     Route::put('update-dosen/{d_id}', [KaprodiController::class, 'updateDosen'])->name('updatedosen');
     Route::delete('delete-dosen/{d_id}', [KaprodiController::class, 'destroyDosen'])->name('destroydosen');
     Route::get('/dosen-cari', [KaprodiController::class, 'cariNamaDosen'])->name('caridosen');
-    Route::post('/dosen/reset-password/{id}', [KaprodiController::class, 'resetPasswordDosen'])->name('reset-password-dosen');
+    // Route::post('/dosen/reset-password/{id}', [KaprodiController::class, 'resetPasswordDosen'])->name('reset-password-dosen');
+    Route::put('/updateakun/{id_user}', [KaprodiController::class, 'updateAkun'])->name('updateakundosen');
 
 
-    Route::get('/kelas', [KaprodiController::class, 'indexKelas'])->name('layouts.kelas');
+    Route::get('/kaprodi-kelas', [KaprodiController::class, 'indexKelas'])->name('layouts.kelas');
     Route::post('/store-kelas', [KaprodiController::class, 'storeKelas'])->name('storekelas');
     Route::put('update-kelas/{id}', [KaprodiController::class, 'updateKelas'])->name('updatekelas');
     Route::delete('delete-kelas/{id}', [KaprodiController::class, 'destroyKelas'])->name('destroykelas');
     Route::get('/kelas-cari', [KaprodiController::class, 'cariNamaKelas'])->name('carikelas');
 
     // Rute untuk halaman plotting
-    Route::get('/plotting', [KaprodiController::class, 'indexPlot'])->name('layouts.plotting');
+    Route::get('/kaprodi-plotting', [KaprodiController::class, 'indexPlot'])->name('layouts.plotting');
     Route::get('/plotting-dosen', [KaprodiController::class, 'plotDosen'])->name('plottingdosen');
     Route::post('/plotting-updatedosen', [KaprodiController::class, 'updateKelasDosen'])->name('plottingupdatedosen');
     Route::delete('/plotting-destroydosen/{id}', [KaprodiController::class, 'destroyKelasDosen'])->name('plottingdestroydosen');
@@ -82,6 +85,7 @@ Route::middleware(['auth', 'kaprodi'])->group(function () {
     Route::put('update-mahasiswa/{id}', [KaprodiController::class, 'updateMahasiswa'])->name('update.mahasiswa');
     Route::delete('delete-mahasiswa/{id}', [KaprodiController::class, 'destroyMahasiswa'])->name('destroy.mahasiswa');
     Route::get('/mahasiswa-cari', [KaprodiController::class, 'cariNamaMahasiswa'])->name('cari.mahasiswa');
+    Route::put('/updateakun-mahasiswa/{id_user}', [KaprodiController::class, 'updateAkun'])->name('updateakunmahasiswa');
 });
 
 //dosen
@@ -92,11 +96,11 @@ Route::middleware(['auth', 'dosen'])->group(function () {
     Route::get('/mahasiswa/edit/{id}', [DosenController::class, 'edit'])->name('dosen.editmhs');
     Route::put('/mahasiswa/update/{id}', [DosenController::class, 'update'])->name('dosen.update');
     Route::delete('/mahasiswa/destory/{id}', [DosenController::class, 'destroy'])->name('dosen.destroy');
-    Route::delete('/request/edit/{id}', [DosenController::class, 'hapusrequest'])->name('request.edit.destroy');
+    Route::delete('/request/destroy/{id}', [DosenController::class, 'hapusrequest'])->name('request.edit.destroy');
     Route::get('dosen/mahasiswa/create', [DosenController::class, 'create'])->name('dosen.create');
     Route::post('mahasiswa/store/', [DosenController::class, 'store'])->name('dosen.store');
     Route::get('/dosenmahasiswa', [DosenController::class, 'mahasiswaindex'])->name('dosen.mahasiswa');
     Route::post('/dosen/approve/{id}', [DosenController::class, 'approveEditRequest'])->name('dosen.approveEditRequest');
-    Route::get('dosen/{id}/edit', [DosenController::class, 'editdosen'])->name('dosen.edit');
-    Route::put('dosen/{id}/update', [DosenController::class, 'updatedosen'])->name('dosen.updatedosen');
+    Route::get('dosen/edit/{id}', [DosenController::class, 'editdosen'])->name('dosen.editdosen');
+    Route::put('dosen/update/{id}', [DosenController::class, 'updatedosen'])->name('dosen.updatedosen');
 });

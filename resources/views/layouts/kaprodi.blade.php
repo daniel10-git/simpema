@@ -8,7 +8,6 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <x-tambah-kaprodi />
-    <x-edit-kaprodi />
     <x-search />
 
 </head>
@@ -16,7 +15,6 @@
 <body class="bg-gray-100 dark:bg-gray-900 text-white">
     @include('components.navbar')
     <header class="antialiased">
-
     </header>
 
     <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar"
@@ -37,148 +35,62 @@
             <div class="bg-white shadow-md rounded-lg overflow-hidden">
                 <!-- Start block -->
                 <section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
-                    <div class="mx-auto max-w-screen-2xl px-4 lg:px-12">
-                        <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
+                    <div class="py-8 px-8 text-gray-900 dark:text-gray-100">
+                        <div class="max-w-full mx-auto sm:px-6 lg:px-4">
                             <div
-                                class="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
-                                <div class="flex-1 flex items-center space-x-2">
-                                    <h5>
-                                        <span class="text-gray-500">Data Kaprodi</span>
-                                    </h5>
-                                </div>
-                            </div>
-                            <div
-                                class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
-                                <div class="w-full md:w-1/2">
-                                    <form class="flex items-center">
-                 
-                                        <div class="relative w-full">
-                                            <div
-                                                class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
-                                                    fill="currentColor" viewbox="0 0 20 20"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    
-                                                </svg>
-                                            </div>
-                                            
+                                class="bg-gradient-to-r from-indigo-100 to-blue-100 dark:bg-gray-800 overflow-hidden shadow-lg sm:rounded-lg">
+                                <div class="p-6">
+                                    <h1 class="text-3xl font-extrabold mb-4 text-indigo-400 dark:text-indigo-100">Profil
+                                        Kaprodi</h1>
+                                    @if (session('success'))
+                                        <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
+                                            role="alert">
+                                            {{ session('success') }}
                                         </div>
-                                    </form>
-                                </div>
-                                
-                                <div
-                                    class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                                    <div id="filterDropdown"
-                                        class="z-10 hidden px-3 pt-1 bg-white rounded-lg shadow w-80 dark:bg-gray-700 right-0">
-                                        <div class="pt-3 pb-2">
-                    
-                                            <div class="relative">
-                                                <div
-                                                    class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-                                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                                                        aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill-rule="evenodd"
-                                                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                                            clip-rule="evenodd" />
-                                                    </svg>
-                                                </div>
-                                                <input type="text" id="input-group-search"
-                                                    class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                    placeholder="Search keywords...">
-                                            </div>
-                                        </div>
-                                        <div id="accordion-flush" data-accordion="collapse"
-                                            data-active-classes="text-black dark:text-white"
-                                            data-inactive-classes="text-gray-500 dark:text-gray-400">
+                                    @endif
 
-                                            <div id="category-body" class="hidden" aria-labelledby="category-heading">
-                                                <div
-                                                    class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
-                                                </div>
-                                            </div>
-
-                                            <div id="worldwide-shipping-body" class="hidden"
-                                                aria-labelledby="worldwide-shipping-heading">
+                                    <div class="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-md">
+                                        <div class="flex items-center mb-4">
+                                            <div class="text-gray-900 dark:text-gray-100">
+                                                <h1 class="text-2xl font-bold mb-6">{{ $kaprodi->nama }}</h1>
+                                                <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                                    Email :
+                                                    {{ $kaprodi->user->email }}</p>
+                                                <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">NIP
+                                                    :
+                                                    {{ $kaprodi->nip }}</p>
+                                                <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                                    Kode
+                                                    Dosen :
+                                                    {{ $kaprodi->kode_dosen }}</p>
+                                                <button type="button" id="updateProductButton"
+                                                    data-modal-target="updateProductModal{{ $kaprodi->id }}"
+                                                    data-modal-toggle="updateProductModal{{ $kaprodi->id }}"
+                                                    class="block text-white bg-yellow-500 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800">
+                                                    Edit
+                                                </button>
+                                                @include('components.edit-kaprodi')
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="flex items-center space-x-3 w-full md:w-auto">
-                                    </div>
                                 </div>
                             </div>
-                            <div class="overflow-x-auto">
-                                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                    <thead
-                                        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                        <tr>
-                                            <th scope="col" class="p-4">
-                                                <div class="flex items-center">
-
-                                                </div>
-                                            </th>
-                                            <th scope="col" class="p-4">Kaprodi ID</th>
-                                            <th scope="col" class="p-4">User ID</th>
-                                            <th scope="col" class="p-4">Kode Dosen</th>
-                                            <th scope="col" class="p-4">NIP</th>
-                                            <th scope="col" class="p-4">Nama</th>
-                                            
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($kaprodi as $k)
-                                            <tr
-                                                class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
-                                                <td class="p-4 w-4">
-
-                                                </td>
-                                                <td
-                                                    class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                    <div class="flex items-center">
-                                                        {{ $k->id }}
-                                                    </div>
-                                                </td>
-                                                <td
-                                                    class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                    <div class="flex items-center">
-                                                        {{ $k->id_user }}
-                                                    </div>
-                                                </td>
-                                                <td
-                                                    class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                    <div class="flex items-center">
-                                                        {{ $k->kode_dosen }}
-                                                    </div>
-                                                </td>
-                                                <th scope="row"
-                                                    class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                    <div class="flex items-center mr-3">
-                                                        {{ $k->nip }}
-                                                    </div>
-                                                </th>
-                                                <th scope="row"
-                                                    class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                    <div class="flex items-center mr-3">
-                                                        {{ $k->nama }}
-                                                    </div>
-                                                </th>
-                                                
-                                            </tr>
-                                        @endforeach
-
-                                    </tbody>
-                                </table>
-                            </div>
-                            <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
-                                aria-label="Table navigation">
-                               
-                            </nav>
                         </div>
                     </div>
                 </section>
-                <!-- End block -->
-
-                </form>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        var selectElement = document.getElementById('id_user');
+                        if (selectElement) {
+                            selectElement.addEventListener('change', function() {
+                                var selectedOption = this.options[this.selectedIndex];
+                                var userName = selectedOption.text;
+                                document.getElementById('nama').value = userName;
+                            });
+                        }
+                    });
+                </script>
                 @include('footer')
+
 </html>
