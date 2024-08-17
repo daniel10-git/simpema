@@ -24,12 +24,12 @@
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         <h2 class="text-2xl font-bold mb-4 text-center">Request Edit</h2>
                         @if (session('success'))
-                            <div id="successMessage" class="bg-green-500 text-white font-bold rounded-lg p-4 mb-4">
+                            <div id="successMessage" class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400">
                                 {{ session('success') }}
                             </div>
                         @endif
                         @if (session('error'))
-                            <div id="errorMessage" class="bg-red-500 text-white font-bold rounded-lg p-4 mb-4">
+                            <div id="errorMessage" class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400">
                                 {{ session('error') }}
                             </div>
                         @endif
@@ -88,9 +88,8 @@
                                                 </button>
 
                                                 <!-- Delete Modal -->
-                                                <!-- Delete Modal -->
                                                 <div id="delete-modal-{{ $request->id }}" tabindex="-1"
-                                                    class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                                                    class="hidden fixed inset-0 z-50 items-center justify-center bg-black bg-opacity-50">
                                                     <div
                                                         class="relative w-full h-auto max-w-md max-h-full bg-white dark:bg-gray-700 rounded-lg shadow">
                                                         <button type="button"

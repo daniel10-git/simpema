@@ -28,12 +28,12 @@
 
                         <!-- Success/Error Messages -->
                         @if (session('success'))
-                            <div id="successMessage" class="bg-green-500 text-white font-bold rounded-lg p-4 mb-4">
+                            <div id="successMessage" class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400">
                                 {{ session('success') }}
                             </div>
                         @endif
                         @if (session('error'))
-                            <div id="errorMessage" class="bg-red-500 text-white font-bold rounded-lg p-4 mb-4">
+                            <div id="errorMessage" class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400">
                                 {{ session('error') }}
                             </div>
                         @endif
