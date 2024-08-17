@@ -96,7 +96,7 @@ Route::middleware(['auth', 'dosen'])->group(function () {
     Route::get('/mahasiswa/edit/{id}', [DosenController::class, 'edit'])->name('dosen.editmhs');
     Route::put('/mahasiswa/update/{id}', [DosenController::class, 'update'])->name('dosen.update');
     Route::delete('/mahasiswa/destory/{id}', [DosenController::class, 'destroy'])->name('dosen.destroy');
-    Route::delete('/request/edit/{id}', [DosenController::class, 'hapusrequest'])->name('request.edit.destroy');
+    Route::delete('/request/destroy/{id}', [DosenController::class, 'hapusrequest'])->name('request.edit.destroy');
     Route::get('dosen/mahasiswa/create', [DosenController::class, 'create'])->name('dosen.create');
     Route::post('mahasiswa/store/', [DosenController::class, 'store'])->name('dosen.store');
     Route::get('/dosenmahasiswa', [DosenController::class, 'mahasiswaindex'])->name('dosen.mahasiswa');

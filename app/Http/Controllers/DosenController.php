@@ -35,7 +35,6 @@ class DosenController extends Controller
         $mahasiswanull = Mahasiswa::whereNull('kelas_id')->get();
 
         return view('dosen.show', compact('dosen', 'mahasiswa', 'mahasiswanull', 'search'));
-        
     }
 
     // Menampilkan form edit
@@ -57,10 +56,10 @@ class DosenController extends Controller
             'nama' => 'required|string|max:255',
             'nip' => 'required|string|max:20|unique:t_dosen,nip,' . $id,
             'kode_dosen' => 'required|string|max:10|unique:t_dosen,kode_dosen,' . $id,
-           'email' => 'required|string|email|max:255|unique:users,email,' . $dosen->id_user,
+            'email' => 'required|string|email|max:255|unique:users,email,' . $dosen->id_user,
             'password' => 'nullable|string|min:8',
         ]);
-       
+
         // // Cari user berdasarkan ID
         // $user = User::findOrFail($id_user);
 
@@ -74,7 +73,7 @@ class DosenController extends Controller
         }
         // Simpan perubahan
         $user->save();
-        
+
         // Update data di tabel dosen
         $dosen->nama = $request->input('nama');
         $dosen->nip = $request->input('nip');
@@ -85,7 +84,7 @@ class DosenController extends Controller
     }
 
 
-    
+
 
 
     // Handle approval or rejection of edit requests
@@ -129,12 +128,16 @@ class DosenController extends Controller
     }
 
     public function hapusrequest($id)
-    {
+{
         $request = RequestEdit::findOrFail($id);
         $request->delete();
+        return redirect()->route('dosen.show2', ['id' => Auth::user()->id])->with('error', 'Permintaan Akses Edit telah anda tolak.');
+        // Log the error or handle it
+    
+}
 
-        return redirect()->route('dosen.index')->with('success', 'Permintaan Akses Edit telah anda tolak.');
-    }
+    
+
 
     public function create()
     {
@@ -233,7 +236,7 @@ class DosenController extends Controller
 
         // If no Dosen is found, you might want to handle this case
         if (!$dosen) {
-            return redirect()->route('dosen.index')->with('error', 'Dosen not found.');
+            return redirect()->route('dosen.show')->with('error', 'Dosen not found.');
         }
 
         // Set kelas_id to NULL instead of deleting the record
@@ -241,7 +244,7 @@ class DosenController extends Controller
         $mahasiswa->save();
 
         // Redirect to the show route of the found Dosen
-        return redirect()->route('dosen.show', $dosen->id)->with('success', 'Kelas mahasiswa berhasil dihapus.');
+        return redirect()->route('dosen.show', $dosen->id)->with('error', 'Kelas mahasiswa berhasil dihapus.');
     }
 
 
