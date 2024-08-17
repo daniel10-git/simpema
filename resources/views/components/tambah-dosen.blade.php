@@ -32,7 +32,7 @@
                     <div class="mt-4">
                         <label for="name"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
-                        <input type="text" id="name" name="name"
+                        <input type="name" id="name" name="name"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             :value="old('name')" required autofocus autocomplete="name">
                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
@@ -50,25 +50,27 @@
                     <!-- Dosen Data Section -->
 
                     <div class="mt-4">
-                        <label for="kode_dosen"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kode Dosen</label>
+                        <label for="kode_dosen" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Kode Dosen
+                        </label>
                         <input type="text" id="kode_dosen" name="kode_dosen"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="" required>
+                            placeholder="" required pattern="\d*" inputmode="numeric">
                     </div>
 
                     <div class="mt-4">
-                        <label for="nip"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIP</label>
+                        <label for="nip" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            NIP
+                        </label>
                         <input type="text" id="nip" name="nip"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="" required>
+                            placeholder="" required pattern="\d*" inputmode="numeric">
                     </div>
 
                     <div class="mt-4">
                         <label for="nama"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
-                        <input type="text" id="nama" name="nama"
+                        <input type="nama" id="nama" name="nama"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="" required>
                     </div>
@@ -85,6 +87,15 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.querySelectorAll('input[type="text"]').forEach(input => {
+        input.addEventListener('input', function(e) {
+            this.value = this.value.replace(/\D/g, ''); // Hanya izinkan angka
+        });
+    });
+</script>
+
 
 <script>
     document.addEventListener("DOMContentLoaded", function(event) {
