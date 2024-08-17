@@ -80,7 +80,7 @@ class DosenController extends Controller
         $dosen->kode_dosen = $request->input('kode_dosen');
         $dosen->update();
 
-        return redirect()->route('dosen.show', $id)->with('success', 'Data dosen berhasil diupdate.');
+        return redirect()->route('dosen.show', $id)->with('successdosen', 'Data dosen berhasil diupdate.');
     }
 
 
@@ -178,7 +178,7 @@ class DosenController extends Controller
             }
         }
 
-        return redirect()->route('dosen.show', $dosen->id)->with('success', 'Data mahasiswa berhasil diperbarui dan kelas telah ditetapkan.');
+        return redirect()->route('dosen.show', $dosen->id)->with('successmhs', 'Data mahasiswa berhasil diperbarui dan kelas telah ditetapkan.');
     }
 
 
@@ -218,7 +218,7 @@ class DosenController extends Controller
             // Update the Mahasiswa data
             $mahasiswa->update($validatedData);
 
-            return redirect()->route('dosen.show', $dosen->id)->with('success', 'Data Mahasiswa telah diperbarui.');
+            return redirect()->route('dosen.show', $dosen->id)->with('successmhs', 'Data Mahasiswa telah diperbarui.');
         }
 
         return redirect()->route('dosen.show')->with('error', 'You do not have permission to update this data.');
@@ -242,7 +242,7 @@ class DosenController extends Controller
         $mahasiswa->save();
 
         // Redirect to the show route of the found Dosen
-        return redirect()->route('dosen.show', $dosen->id)->with('error', 'Mahasiswa telah dikeluarkan dari kelas.');
+        return redirect()->route('dosen.show', $dosen->id)->with('errormhs', 'Mahasiswa telah dikeluarkan dari kelas.');
     }
 
 
