@@ -61,8 +61,10 @@ class KaprodiController extends Controller
             'nip' => $request->nip,
             'kode_dosen' => $request->kode_dosen,
         ]);
-        return redirect()->route('kaprodiindex');
+        return redirect()->route('kaprodiindex')->with('success', 'Data kaprodi dan data akun kaprodi berhasil diperbaharui.');
     }
+
+
 
     public function indexDosen()
     {
@@ -96,7 +98,7 @@ class KaprodiController extends Controller
             'nama' => $request->input('nama'),
         ]);
 
-        return redirect()->route('layouts.dosen')->with('success', 'Dosen berhasil ditambah.');
+        return redirect()->route('layouts.dosen')->with('success', 'Data dosen dan data akun dosen berhasil ditambah.');
     }
 
 
@@ -121,7 +123,7 @@ class KaprodiController extends Controller
         $dosen->delete();
         $user->delete();
 
-        return redirect()->route('layouts.dosen')->with('success', 'Dosen berhasil dihapus.');
+        return redirect()->route('layouts.dosen')->with('deleted', 'Data dosen dan data akun dosen berhasil dihapus.');
     }
 
 
@@ -175,7 +177,7 @@ class KaprodiController extends Controller
         $user->save();
 
         // Redirect kembali ke halaman sebelumnya dengan pesan sukses
-        return redirect()->back()->with('success', 'Akun dosen berhasil diperbarui.');
+        return redirect()->back()->with('success', 'Akun berhasil diperbarui.');
     }
 
 
@@ -211,10 +213,7 @@ class KaprodiController extends Controller
         return view('layouts.kelas', compact('kelas'));
     }
 
-    public function createKelas()
-    {
-        return view('kaprodikelascreate');
-    }
+
 
     public function storeKelas(Request $request)
     {
@@ -247,8 +246,14 @@ class KaprodiController extends Controller
         $kelas = Kelas::findOrFail($id);
         $kelas->delete();
 
-        return redirect()->route('layouts.kelas')->with('success', 'Kelas berhasil dihapus.');
+        return redirect()->route('layouts.kelas')->with('deleted', 'Kelas berhasil dihapus.');
     }
+
+
+
+
+
+
 
 
 
@@ -311,7 +316,7 @@ class KaprodiController extends Controller
         $dosen->update(['kelas_id' => null]);
 
         // Redirect atau berikan feedback
-        return redirect()->back()->with('success', 'Kelas dosen berhasil dihapus.');
+        return redirect()->back()->with('deleted', 'Kelas dosen berhasil dihapus.');
     }
 
     public function updateKelasMahasiswa(Request $request)
@@ -351,8 +356,16 @@ class KaprodiController extends Controller
 
         $mahasiswa->update(['kelas_id' => null]);
 
-        return redirect()->back()->with('success', 'Kelas dosen berhasil dihapus.');
+        return redirect()->back()->with('deleted', 'Kelas dosen berhasil dihapus.');
     }
+
+
+
+
+
+
+
+
 
     //mahasiswa
     public function indexMahasiswa()
@@ -389,7 +402,7 @@ class KaprodiController extends Controller
             'tanggal_lahir' => $request->input('tanggal_lahir'),
             'edit' => '0'
         ]);
-        return redirect()->route('index.mahasiswa')->with('success', 'Mahasiswa berhasil ditambah.');
+        return redirect()->route('index.mahasiswa')->with('success', 'Data mahasiswa dan data akun mahasiswa berhasil ditambah.');
     }
 
     public function updateMahasiswa(Request $request, $id)
@@ -404,7 +417,7 @@ class KaprodiController extends Controller
         $mahasiswa = Mahasiswa::findOrFail($id);
         $mahasiswa->update($request->all());
 
-        return redirect()->route('index.mahasiswa')->with('success', 'Dosen berhasil diperbarui.');
+        return redirect()->route('index.mahasiswa')->with('success', 'Mahasiswa berhasil diperbarui.');
     }
     public function destroyMahasiswa($id)
     {
@@ -414,7 +427,7 @@ class KaprodiController extends Controller
         if ($user) {
             $user->delete();
         }
-        return redirect()->route('index.mahasiswa')->with('success', 'Mahasiswa dan user terkait berhasil dihapus.');
+        return redirect()->route('index.mahasiswa')->with('deleted', 'Data mahasiswa dan data akun mahasiswa berhasil dihapus.');
     }
 
     public function cariNamaMahasiswa(Request $request)

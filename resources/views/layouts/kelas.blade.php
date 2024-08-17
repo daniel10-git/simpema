@@ -46,6 +46,17 @@
                                     </h5>
                                 </div>
                             </div>
+                            @if (session('success'))
+                                <div class="p-4 mb-4 px-4 py-3 font-medium text-gray-900 whitespace-nowrap  dark:bg-gray-700  bg-green-100 rounded-lgdark:bg-green-200 dark:text-green-800"
+                                    role="alert">
+                                    {{ session('success') }}
+                                </div>
+                            @elseif (session('deleted'))
+                                <div class="p-4 mb-4 px-4 py-3 font-medium text-gray-900 whitespace-nowrap  dark:bg-gray-700  bg-red-100 rounded-lgdark:bg-red-200 dark:text-red-800"
+                                    role="alert">
+                                    {{ session('deleted') }}
+                                </div>
+                            @endif
                             <div
                                 class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
                                 <div class="w-full md:w-1/2">
@@ -213,9 +224,12 @@
                         </button>
                     </div>
                 </div>
-
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
-        </body>
-        @include('footer')
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
+   
+</body>
+@include('footer')
 
 </html>
