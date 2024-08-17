@@ -81,8 +81,8 @@
     <!-- Hero Section -->
     <header class="bg-blue-100 text-gray-800 py-16 flex-grow">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <h2 class="text-4xl font-extrabold mb-4">Selamat Datang di Sistem Informasi Mahasiswa</h2>
-            <p class="text-lg mb-8">Sistem Informasi Mahasiswa (SIPEMA) adalah platform digital yang dirancang untuk
+            <h2 class="text-4xl font-extrabold mb-4">Selamat Datang di Sistem Informasi Pendataan Mahasiswa</h2>
+            <p class="text-lg mb-8">Sistem Informasi Pendataan Mahasiswa (SIPEMA) adalah platform digital yang dirancang untuk
                 mempermudah pengelolaan data mahasiswa secara efisien dan terintegrasi. Dengan SIPEMA, mahasiswa dapat
                 mengakses informasi akademis mereka, memantau progres studi, serta berinteraksi dengan dosen dan pihak
                 administrasi dengan mudah. Sistem ini menyediakan fitur untuk memantau jadwal, nilai, dan informasi
