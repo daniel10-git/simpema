@@ -113,7 +113,7 @@ class KaprodiController extends Controller
             'kode_dosen.unique' => 'Kode dosen yang Anda masukkan sudah digunakan. Silakan gunakan kode dosen lain.',
             'nip.unique' => 'NIP yang Anda masukkan sudah digunakan. Silakan gunakan NIP lain.',
         ]);
-    
+
         // Membuat akun pengguna untuk dosen
         $user = User::create([
             'name' => $request->name,
@@ -121,7 +121,7 @@ class KaprodiController extends Controller
             'password' => Hash::make('password123'),
             'role' => 'dosen'
         ]);
-    
+
         // Menyimpan data dosen
         Dosen::create([
             'id_user' => $user->id,
@@ -129,42 +129,42 @@ class KaprodiController extends Controller
             'nip' => $request->input('nip'),
             'nama' => $request->input('nama'),
         ]);
-    
+
         // Redirect dengan pesan sukses
         return redirect()->route('layouts.dosen')->with('success', 'Data dosen dan data akun dosen berhasil ditambah.');
     }
-    
+
 
 
 
     public function updateDosen(Request $request, $id)
-{
-    $request->validate([
-        'kode_dosen' => [
-            'required',
-            'string',
-            'unique:t_dosen,kode_dosen,' . $id,
-        ],
-        'nip' => [
-            'required',
-            'string',
-            'unique:t_dosen,nip,' . $id,
-        ],
-        'nama' => 'required|string|max:100',
-    ], [
-        'kode_dosen.unique' => 'Kode dosen yang Anda masukkan sudah digunakan. Silakan gunakan kode dosen lain.',
-        'nip.unique' => 'NIP yang Anda masukkan sudah digunakan. Silakan gunakan NIP lain.',
-    ]);
+    {
+        $request->validate([
+            'kode_dosen' => [
+                'required',
+                'string',
+                'unique:t_dosen,kode_dosen,' . $id,
+            ],
+            'nip' => [
+                'required',
+                'string',
+                'unique:t_dosen,nip,' . $id,
+            ],
+            'nama' => 'required|string|max:100',
+        ], [
+            'kode_dosen.unique' => 'Kode dosen yang Anda masukkan sudah digunakan. Silakan gunakan kode dosen lain.',
+            'nip.unique' => 'NIP yang Anda masukkan sudah digunakan. Silakan gunakan NIP lain.',
+        ]);
 
-    $dosen = Dosen::findOrFail($id);
-    $dosen->update([
-        'kode_dosen' => $request->input('kode_dosen'),
-        'nip' => $request->input('nip'),
-        'nama' => $request->input('nama'),
-    ]);
+        $dosen = Dosen::findOrFail($id);
+        $dosen->update([
+            'kode_dosen' => $request->input('kode_dosen'),
+            'nip' => $request->input('nip'),
+            'nama' => $request->input('nama'),
+        ]);
 
-    return redirect()->route('layouts.dosen')->with('success', 'Dosen berhasil diperbarui.');
-}
+        return redirect()->route('layouts.dosen')->with('success', 'Dosen berhasil diperbarui.');
+    }
     public function destroyDosen($id)
     {
         $dosen = Dosen::findOrFail($id);
@@ -275,14 +275,29 @@ class KaprodiController extends Controller
 
     public function storeKelas(Request $request)
     {
+        // Validasi inputan
+        $request->validate([
+            'nama' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:t_kelas,nama' // Validasi unik untuk nama kelas
+            ],
+            'kapasitas' => 'required|integer',
+        ], [
+            'nama.unique' => 'Nama kelas yang Anda masukkan sudah terdaftar. Silakan gunakan nama lain.' // Pesan kesalahan kustom
+        ]);
+
+        // Buat data kelas baru
         Kelas::create([
             'nama' => $request->input('nama'),
             'kapasitas' => $request->input('kapasitas'),
-
         ]);
 
+        // Redirect dengan pesan sukses
         return redirect()->route('layouts.kelas')->with('success', 'Kelas berhasil ditambahkan.');
     }
+
 
 
     public function updateKelas(Request $request, $id)
@@ -290,8 +305,15 @@ class KaprodiController extends Controller
         $kelas = Kelas::findOrFail($id);
 
         $request->validate([
-            'nama' => 'required|string|max:50',
+            'nama' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:t_kelas,nama' // Validasi unik untuk nama kelas
+            ],
             'kapasitas' => 'required|integer|min:1',
+        ], [
+            'nama.unique' => 'Nama kelas yang Anda masukkan sudah terdaftar. Silakan gunakan nama lain.' // Pesan kesalahan kustom
         ]);
 
         $kelas->update($request->only(['nama', 'kapasitas']));
@@ -458,7 +480,7 @@ class KaprodiController extends Controller
             'email.unique' => 'Email yang Anda masukkan sudah terdaftar. Silakan gunakan email lain.',
             'nim.unique' => 'NIM yang Anda masukkan sudah terdaftar. Silakan gunakan NIM lain.' // Pesan kesalahan kustom
         ]);
-    
+
         // Buat pengguna baru
         $user = User::create([
             'name' => $request->name,
@@ -466,7 +488,7 @@ class KaprodiController extends Controller
             'password' => Hash::make('password123'),
             'role' => 'mahasiswa',
         ]);
-    
+
         // Buat data mahasiswa baru
         Mahasiswa::create([
             'id_user' => $user->id,
@@ -476,10 +498,10 @@ class KaprodiController extends Controller
             'tanggal_lahir' => $request->input('tanggal_lahir'),
             'edit' => '0'
         ]);
-    
+
         return redirect()->route('index.mahasiswa')->with('success', 'Data mahasiswa dan data akun mahasiswa berhasil ditambah.');
     }
-    
+
     public function updateMahasiswa(Request $request, $id)
     {
         $request->validate([
