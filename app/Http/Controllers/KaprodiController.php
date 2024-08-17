@@ -34,35 +34,47 @@ class KaprodiController extends Controller
     }
 
     public function updateKaprodi(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $request->id_user,
-            'password' => 'nullable|string|min:8',
-            'nama' => 'required',
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => [
+            'required',
             'string',
-            'nip' => 'required',
-            'string',
-            'kode_dosen' => 'required',
-            'string',
-        ]);
+            'email',
+            'max:255',
+            'unique:users,email,' . $request->id_user
+        ],
+        'password' => 'nullable|string|min:8',
+        'nama' => 'required|string',
+        'nip' => 'required|string',
+        'kode_dosen' => 'required|string',
+    ], [
+        'email.unique' => 'Email yang Anda masukkan sudah terdaftar. Silakan gunakan email lain.' // Pesan kesalahan kustom
+    ]);
 
-        $user = User::findOrFail($request->id_user);
-        $user->name = $request->name;
-        $user->email = $request->email;
-        if ($request->password) {
-            $user->password = Hash::make($request->password);
-        }
-        $user->save();
+    // Temukan user berdasarkan ID
+    $user = User::findOrFail($request->id_user);
+    $user->name = $request->name;
+    $user->email = $request->email;
 
-        $kaprodi = Kaprodi::where('id', $request->id)->first();
-        $kaprodi->update([
-            'nama' => $request->nama,
-            'nip' => $request->nip,
-            'kode_dosen' => $request->kode_dosen,
-        ]);
-        return redirect()->route('kaprodiindex')->with('success', 'Data kaprodi dan data akun kaprodi berhasil diperbaharui.');
+    // Update password jika diisi
+    if ($request->password) {
+        $user->password = Hash::make($request->password);
     }
+
+    $user->save();
+
+    // Temukan dan update data kaprodi
+    $kaprodi = Kaprodi::where('id', $request->id)->firstOrFail();
+    $kaprodi->update([
+        'nama' => $request->nama,
+        'nip' => $request->nip,
+        'kode_dosen' => $request->kode_dosen,
+    ]);
+
+    return redirect()->route('kaprodiindex')->with('success', 'Data kaprodi dan data akun kaprodi berhasil diperbaharui.');
+}
+
 
 
 
@@ -78,10 +90,12 @@ class KaprodiController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
             'kode_dosen' => ['required', 'string'],
             'nip' => ['required', 'string'],
             'nama' => ['required', 'string'],
+        ], [
+            'email.unique' => 'Email yang Anda masukkan sudah digunakan. Silakan gunakan email lain.'
         ]);
 
         $user = User::create([
@@ -100,6 +114,7 @@ class KaprodiController extends Controller
 
         return redirect()->route('layouts.dosen')->with('success', 'Data dosen dan data akun dosen berhasil ditambah.');
     }
+
 
 
     public function updateDosen(Request $request, $id)
@@ -157,8 +172,16 @@ class KaprodiController extends Controller
         // Validasi inputan
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $id_user,
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                'unique:users,email,' . $id_user, // Mengizinkan email saat ini untuk tetap sama
+            ],
             'password' => 'nullable|string|min:8',
+        ], [
+            'email.unique' => 'Email yang Anda masukkan sudah terdaftar. Silakan gunakan email lain.' // Pesan kesalahan kustom
         ]);
 
         // Cari user berdasarkan ID
@@ -304,7 +327,7 @@ class KaprodiController extends Controller
         // Update kelas dosen
         Dosen::whereIn('id', $dosenIds)->update(['kelas_id' => $idKelas]);
 
-        return redirect()->back()->with('success', 'Kelas dosen berhasil diperbarui.');
+        return redirect()->back()->with('success', 'Dosen berhasil dipindahkan ke kelas.');
     }
 
     public function destroyKelasDosen($id)
@@ -316,7 +339,7 @@ class KaprodiController extends Controller
         $dosen->update(['kelas_id' => null]);
 
         // Redirect atau berikan feedback
-        return redirect()->back()->with('deleted', 'Kelas dosen berhasil dihapus.');
+        return redirect()->back()->with('deleted', 'Dosen berhasil dikeluarkan dari kelas.');
     }
 
     public function updateKelasMahasiswa(Request $request)
@@ -347,7 +370,7 @@ class KaprodiController extends Controller
         // Perbarui kelas mahasiswa
         Mahasiswa::whereIn('id', $mahasiswaIds)->update(['kelas_id' => $idKelas]);
 
-        return redirect()->back()->with('success', 'Kelas mahasiswa berhasil diperbarui.');
+        return redirect()->back()->with('success', 'Mahasiswa berhasil dipindahkan ke kelas.');
     }
 
     public function destroyKelasMahasiswa($id)
@@ -356,7 +379,7 @@ class KaprodiController extends Controller
 
         $mahasiswa->update(['kelas_id' => null]);
 
-        return redirect()->back()->with('deleted', 'Kelas dosen berhasil dihapus.');
+        return redirect()->back()->with('deleted', 'Mahasiswa berhasil dikeluarkan dari kelas.');
     }
 
 
@@ -380,12 +403,22 @@ class KaprodiController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users'],
+            'email' => [
+                'required',
+                'string',
+                'lowercase',
+                'email',
+                'max:255',
+                'unique:users'
+            ],
             'nama' => ['required', 'string'],
             'nim' => ['required', 'string'],
             'tempat_lahir' => ['required', 'string'],
             'tanggal_lahir' => ['required', 'date']
+        ], [
+            'email.unique' => 'Email yang Anda masukkan sudah terdaftar. Silakan gunakan email lain.' // Pesan kesalahan kustom
         ]);
+
 
         $user = User::create([
             'name' => $request->name,
