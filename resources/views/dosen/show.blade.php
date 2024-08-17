@@ -27,6 +27,7 @@
                         <h1 class="text-3xl font-extrabold mb-4 text-indigo-400 dark:text-indigo-200">Profil Dosen</h1>
 
                         <!-- Success/Error Messages -->
+<<<<<<< HEAD
                         @if (session('successdosen'))
                             <div id="successMessage" class="bg-green-500 text-white font-bold rounded-lg p-4 mb-4">
                                 {{ session('successdosen') }}
@@ -35,6 +36,16 @@
                         @if (session('errordosen'))
                             <div id="errorMessage" class="bg-red-500 text-white font-bold rounded-lg p-4 mb-4">
                                 {{ session('errordosen') }}
+=======
+                        @if (session('success'))
+                            <div id="successMessage" class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+                        @if (session('error'))
+                            <div id="errorMessage" class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400">
+                                {{ session('error') }}
+>>>>>>> c3456e3ccab267ac8fe690c6703a228d5197ddff
                             </div>
                         @endif
 
